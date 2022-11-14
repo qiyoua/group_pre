@@ -7,7 +7,7 @@ from pyecharts.globals import BMapType, ChartType
 from pyecharts.charts import BMap
 from pyecharts.globals import GeoType
 
-
+st.set_page_config(layout='wide')
 tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8,tab9 = st.tabs(['1.1.点图:POI数据介绍','1.2.点图POI数据获取','1.3.点图:POI数据可视化','1.4.点图:核酸点的可视化','1.5.点图:空气质量点',
 '2.1.线图:在地图上连线','2.2.线图:绘制路线图','3.1.面图:简单的热力图','3.2.香港人口密度可视化'])
 
