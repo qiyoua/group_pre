@@ -2,16 +2,17 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Awesome-pyecharts</title>
+    <title>网页标题</title>
             <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
 
 </head>
 <body>
-    <div id="f1da40d41ca4479b9e65650527c55488" class="chart-container" style="width:600px; height:400px;"></div>
+    <div id="cf74d8de9ea14e0fb1410886a55d8012" class="chart-container" style="width:400px; height:400px;"></div>
     <script>
-        var chart_f1da40d41ca4479b9e65650527c55488 = echarts.init(
-            document.getElementById('f1da40d41ca4479b9e65650527c55488'), 'light', {renderer: 'canvas'});
-        var option_f1da40d41ca4479b9e65650527c55488 = {
+        var chart_cf74d8de9ea14e0fb1410886a55d8012 = echarts.init(
+            document.getElementById('cf74d8de9ea14e0fb1410886a55d8012'), 'white', {renderer: 'svg'});
+        var option_cf74d8de9ea14e0fb1410886a55d8012 = {
+    "backgroundColor": "white",
     "animation": true,
     "animationThreshold": 2000,
     "animationDuration": 1000,
@@ -20,20 +21,48 @@
     "animationDurationUpdate": 300,
     "animationEasingUpdate": "cubicOut",
     "animationDelayUpdate": 0,
+    "color": [
+        "#c23531",
+        "#2f4554",
+        "#61a0a8",
+        "#d48265",
+        "#749f83",
+        "#ca8622",
+        "#bda29a",
+        "#6e7074",
+        "#546570",
+        "#c4ccd3",
+        "#f05b72",
+        "#ef5b9c",
+        "#f47920",
+        "#905a3d",
+        "#fab27b",
+        "#2a5caa",
+        "#444693",
+        "#726930",
+        "#b2d235",
+        "#6d8346",
+        "#ac6767",
+        "#1d953f",
+        "#6950a1",
+        "#918597"
+    ],
     "series": [
         {
             "type": "bar",
             "name": "\u5546\u5bb6A",
             "legendHoverLink": true,
             "data": [
-                5,
-                20,
-                36,
-                10,
-                75,
-                90
+                34,
+                140,
+                63,
+                110,
+                41,
+                38,
+                62
             ],
             "showBackground": false,
+            "stack": "stack1",
             "barMinHeight": 0,
             "barCategoryGap": "20%",
             "barGap": "30%",
@@ -55,14 +84,16 @@
             "name": "\u5546\u5bb6B",
             "legendHoverLink": true,
             "data": [
-                15,
-                6,
-                45,
-                20,
-                35,
-                66
+                81,
+                75,
+                63,
+                125,
+                34,
+                69,
+                105
             ],
             "showBackground": false,
+            "stack": "stack1",
             "barMinHeight": 0,
             "barCategoryGap": "20%",
             "barGap": "30%",
@@ -89,12 +120,7 @@
             "selected": {
                 "\u5546\u5bb6A": true,
                 "\u5546\u5bb6B": true
-            },
-            "show": true,
-            "padding": 5,
-            "itemGap": 10,
-            "itemWidth": 25,
-            "itemHeight": 14
+            }
         }
     ],
     "tooltip": {
@@ -136,12 +162,13 @@
                 }
             },
             "data": [
-                "\u886c\u886b",
-                "\u7f8a\u6bdb\u886b",
-                "\u96ea\u7eba\u886b",
-                "\u88e4\u5b50",
-                "\u9ad8\u8ddf\u978b",
-                "\u889c\u5b50"
+                "\u8349\u8393",
+                "\u8292\u679c",
+                "\u8461\u8404",
+                "\u96ea\u68a8",
+                "\u897f\u74dc",
+                "\u67e0\u6aac",
+                "\u8f66\u5398\u5b50"
             ]
         }
     ],
@@ -167,17 +194,9 @@
                 }
             }
         }
-    ],
-    "title": [
-        {
-            "text": "\u4e3b\u6807\u9898",
-            "subtext": "\u526f\u6807\u9898",
-            "padding": 5,
-            "itemGap": 10
-        }
     ]
 };
-        chart_f1da40d41ca4479b9e65650527c55488.setOption(option_f1da40d41ca4479b9e65650527c55488);
+        chart_cf74d8de9ea14e0fb1410886a55d8012.setOption(option_cf74d8de9ea14e0fb1410886a55d8012);
     </script>
 </body>
 </html>

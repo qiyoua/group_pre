@@ -54,7 +54,6 @@ json.loads(content)
         st.markdown("""<h6><center>一个复杂的POI数据集</center></h6>""",unsafe_allow_html=True)
         st.image('./results/复杂的poi.png')
         
-
 with tab2:
     st.markdown("""<h5><center>如何获取POI数据</center></h5>""",unsafe_allow_html=True)
     col1,col2 = st.columns([1,1])
@@ -85,8 +84,7 @@ with open('covid_test.json','w') as f:
         """\n"""
         """[参考网址](http://guihuayun.com/poi/)""")
         st.image('./results/规划云.png')
-    
-    
+       
 with tab3:
     try:
         register_url("https://echarts-maps.github.io/echarts-china-counties-js/")
@@ -138,7 +136,7 @@ with tab3:
         """- **方法一创建Map实例**"""
         with open('./results/map地图.html','r') as f:
             content = f.read()
-            cp.html(content,height=600)
+            cp.html(content,height=600,width=400)
         with st.expander('代码'):
             st.code("""
             map_district = '海口'
@@ -178,7 +176,7 @@ geo = (
     with col1:
         with open('./results/bmap地图.html','r') as f:
             content = f.read()
-            cp.html(content,height=600,width=800)
+            cp.html(content,height=600,width=700)
     with col2:
         st.code("""
                 from pyecharts.charts import BMap
@@ -190,7 +188,6 @@ geo = (
         .render('./results/bmap地图.html')    
     )
                 """)
-
 
 with tab4:
     st.info(
@@ -256,28 +253,25 @@ poi = [[key,value[-1]] for key,value in zip(res.keys(),res.values())]
             content = f.read()
             cp.html(content,height=800)
 
-
 with tab5:
     with open('./results/air.html','r') as f:
             content = f.read()
-            cp.html(content,height=800)
-
+            cp.html(content,height=800,width=1200)
 
 with tab6:
     with open('./results/line1.html','r') as f:
             content = f.read()
-            cp.html(content,height=800)
-
+            cp.html(content,height=800,width=1200)
 
 with tab7:
     with open('./results/line2.html','r') as f:
             content = f.read()
-            cp.html(content,height=800)
+            cp.html(content,height=1000,width=1200)
 
 with tab8:
     with open('./results/heatmap.html','r') as f:
             content = f.read()
-            cp.html(content,height=800)
+            cp.html(content,height=1000,width=1200)
 
 with tab9:
     with open('./results/hongkong.html','r') as f:

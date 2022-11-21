@@ -1,11 +1,16 @@
 import streamlit as st
 import streamlit.components.v1 as cp
+import streamlit_option_menu as som
+from pyecharts import options as opts
+from pyecharts.charts import Bar,Line
+from pyecharts.commons.utils import JsCode
+from pyecharts.globals import ThemeType
+from pyecharts.globals import RenderType
+from pyecharts.faker import Faker 
 
 st.set_page_config(layout='wide')
 
-
-
-tab1,tab2 = st.tabs(['1.pyecharts介绍','2.从一个图表看pyecharts的结构'])
+tab1,tab2,tab3 = st.tabs(['1.pyecharts介绍','2.从一个图表看pyecharts的结构','3.pyecharts图表的配置项'])
 
 with tab1:
     """
@@ -128,7 +133,407 @@ bar.render_notebook()
         with open('./results/theme.html','r') as f:
             st.markdown("""<center>更改主题后的图表</center>""",unsafe_allow_html=True)
             cp.html(f.read(),scrolling=True,height=500)
-        
+
+with tab3:
+    st.code("""
+    from pyecharts import options as opts
+from pyecharts.charts import Bar,Line
+from pyecharts.commons.utils import JsCode
+from pyecharts.globals import ThemeType
+from pyecharts.globals import RenderType
+from pyecharts.faker import Faker 
+    """)
+    st.markdown("""<h3><center>初始化配置项</center></h3>""",unsafe_allow_html=True)
+    col1,col2 = st.columns([1,1])
+    with col1:
+        with st.echo():
+            c = Bar(init_opts=opts.InitOpts(
+                width='400px',
+                height='400px',
+                # chart_id='这里设置id,可选',
+                renderer=RenderType.SVG,
+                page_title='网页标题',
+                theme='white',
+                bg_color='white',
+                animation_opts=opts.AnimationOpts()
+            )
+                )
+            c = (
+                c.add_xaxis(Faker.choose())
+                .add_yaxis("商家A", Faker.values(), stack="stack1")
+                .add_yaxis("商家B", Faker.values(), stack="stack1")
+                )
+            c.render('./results/opts1.html')
+    with col2:
+        with open('./results/opts1.html','r') as f:
+            content = f.read()
+            cp.html(content,width=500,height=400,scrolling=True)
+
+    st.markdown("""<h3><center>动画配置项</center></h3>""",unsafe_allow_html=True)
+    col1,col2 = st.columns([1,1])
+    with col1:
+        with st.echo():
+            c = (
+                Bar(init_opts=opts.InitOpts(width='400px',height='300px'
+                ,animation_opts=opts.AnimationOpts(
+                    animation=False)))
+                .add_xaxis(Faker.choose())
+                .add_yaxis("商家A", Faker.values(), stack="stack1")
+                .add_yaxis("商家B", Faker.values(), stack="stack1")
+                .set_global_opts()
+                )
+            c.render('./results/opts2.html')
+    with col2:
+        with open('./results/opts2.html','r') as f:
+            content = f.read()
+            cp.html(content,width=500,height=300,scrolling=True)
+    
+    st.markdown("""<h3><center>标题配置项</center></h3>""",unsafe_allow_html=True)
+    col1,col2 = st.columns([1,1])
+    with col1:
+        with st.echo():
+            c = (
+                Bar(init_opts=opts.InitOpts(width='400px',height='400px'))
+                .add_xaxis(Faker.choose())
+                .add_yaxis("商家A", Faker.values(), stack="stack1")
+                .add_yaxis("商家B", Faker.values(), stack="stack1")
+                .set_global_opts(title_opts=opts.TitleOpts(
+                title='这里写title',
+                title_link='https://pyecharts.org/#/zh-cn/global_options',
+                title_target='blank',
+                subtitle='这里写副标题',
+                pos_left='right',
+                pos_top='top',
+                title_textstyle_opts=None,
+                subtitle_textstyle_opts=None))
+                )
+            c.render('./results/opts3.html')
+
+    with col2:
+        with open('./results/opts3.html','r') as f:
+            content = f.read()
+            cp.html(content,width=500,height=400,scrolling=True)
+    
+    st.markdown("""<h3><center>坐标轴配置项</center></h3>""",unsafe_allow_html=True)
+    col1,col2 = st.columns([1,1])
+    with col1:
+        with st.echo():
+            c = (
+                    Bar(init_opts=opts.InitOpts(width='750px',height='800px'))
+                    .add_xaxis(
+                        [
+                            "名字很长的X轴标签1",
+                            "名字很长的X轴标签2",
+                            "名字很长的X轴标签3",
+                            "名字很长的X轴标签4",
+                            "名字很长的X轴标签5",
+                            "名字很长的X轴标签6",
+                        ]
+                    )
+                    .add_yaxis("商家A", [10, 20, 30, 40, 50, 40])
+                    .add_yaxis("商家B", [20, 10, 40, 30, 40, 50])
+                    .set_global_opts(
+                        xaxis_opts=opts.AxisOpts(type_=None,
+                                        name='坐标轴名称',
+                                        is_show=True,
+                                        is_scale=True,
+                                        is_inverse=False,
+                                        name_location='end',
+                                        name_gap=15,
+                                        name_rotate=-15,
+                                        position='bottom',
+                                        axislabel_opts=opts.LabelOpts(rotate=-15)),
+                        title_opts=opts.TitleOpts(title="Bar-旋转X轴标签",
+                            subtitle="解决标签名字过长的问题"),
+                        yaxis_opts=opts.AxisOpts(min_=0,
+                                        max_=60,
+                                        axisline_opts=opts.AxisLineOpts(
+                                        is_show=True,
+                                        linestyle_opts=opts.LineStyleOpts(
+                                        is_show=True,
+                                        width=1,
+                                        opacity=1)),
+                                        axislabel_opts=opts.LabelOpts(is_show=True,
+                                        position='top',
+                                        color='red',
+                                        font_size=15,
+                                        font_style='italic',
+                                        font_weight='bold',
+                                        font_family='serif',
+                                        rotate=15,
+                                        margin=20,
+                                        formatter="{value} /月")
+                    )
+                    )
+                    
+                )
+            c.render('./results/opts4.html')
+    with col2:
+        with open('./results/opts4.html','r') as f:
+            content = f.read()
+            cp.html(content,width=800,height=800,scrolling=True)
+
+    st.markdown("""<h3><center>xy轴交换</center></h3>""",unsafe_allow_html=True)
+    col1,col2 = st.columns([1,1])
+    with col1:
+        with st.echo():
+            c = (
+                Bar(init_opts=opts.InitOpts(width='500px',height='300px'))
+                .add_xaxis(Faker.choose())
+                .add_yaxis("商家A", Faker.values())
+                .add_yaxis("商家B", Faker.values())
+                .reversal_axis()
+                .set_series_opts(label_opts=opts.LabelOpts(position="right"))
+                .set_global_opts(title_opts=opts.TitleOpts(title="Bar-翻转 XY 轴"))
+            )
+            c.render('./results/opts5.html')
+    with col2:
+        with open('./results/opts5.html','r') as f:
+            content = f.read()
+            cp.html(content,width=600,height=300,scrolling=True)
+    
+    st.markdown("""<h3><center>标记配置项</center></h3>""",unsafe_allow_html=True)
+    col1,col2 = st.columns([1,1])
+    with col1:
+        with st.echo():
+            c = (
+                Bar(init_opts=opts.InitOpts(width='600px',height='450px'))
+                .add_xaxis(Faker.choose())
+                .add_yaxis("商家A", Faker.values())
+                .add_yaxis("商家B", Faker.values())
+                .set_global_opts(title_opts=opts.TitleOpts(title="Bar-MarkPoint（指定类型）"))
+                .set_series_opts(
+                    label_opts=opts.LabelOpts(is_show=False),
+                    markpoint_opts=opts.MarkPointOpts(
+                        data=[
+                            opts.MarkPointItem(type_="max", name="最大值"),
+                            opts.MarkPointItem(type_="min", name="最小值"),
+                            opts.MarkPointItem(type_="average", name="平均值"),
+                        ]
+                    ),
+                )
+            )
+            c.render('./results/opts6.html')
+    with col2:
+        with open('./results/opts6.html','r') as f:
+            content = f.read()
+            cp.html(content,width=600,height=450,scrolling=True)
+    
+    col1,col2 = st.columns([1,1])
+    with col1:
+        with st.echo():
+            c = (
+                Bar(init_opts=opts.InitOpts(width='600px',height='400px'))
+                .add_xaxis(Faker.choose())
+                .add_yaxis("商家A", Faker.values())
+                .add_yaxis("商家B", Faker.values())
+                .set_global_opts(title_opts=opts.TitleOpts(title="Bar-MarkLine（指定类型）"))
+                .set_series_opts(
+                    label_opts=opts.LabelOpts(is_show=False),
+                    markline_opts=opts.MarkLineOpts(
+                        data=[
+                            opts.MarkLineItem(type_="min", name="最小值"),
+                            opts.MarkLineItem(type_="max", name="最大值"),
+                            opts.MarkLineItem(type_="average", name="平均值"),
+                        ]
+                    ),
+                )
+            )
+            c.render('./results/opts7.html')
+    with col2:
+        with open('./results/opts7.html','r') as f:
+            content = f.read()
+            cp.html(content,width=800,height=500,scrolling=True)
+    
+    col1,col2 = st.columns([1,1])
+    with col1:
+        with st.echo():
+            c = (
+                Bar(init_opts=opts.InitOpts(width='600px',height='400px'))
+                .add_xaxis(Faker.choose())
+                .add_yaxis("商家A", Faker.values())
+                .add_yaxis("商家B", Faker.values())
+                .set_global_opts(title_opts=opts.TitleOpts(title="Bar-MarkLine（自定义）"))
+                .set_series_opts(
+                    label_opts=opts.LabelOpts(is_show=False),
+                    markline_opts=opts.MarkLineOpts(
+                        data=[opts.MarkLineItem(y=60, name="yAxis=60")]
+                    ),
+                )
+            )
+            c.render('./results/opts8.html')
+    with col2:
+        with open('./results/opts8.html','r') as f:
+            content = f.read()
+            cp.html(content,width=600,height=400,scrolling=True)
+    
+
+    st.markdown("""<h3><center>数据缩放</center></h3>""",unsafe_allow_html=True)
+    col1,col2 = st.columns([1,1])
+    with col1:
+        with st.echo():
+            c = (
+                Bar(init_opts=opts.InitOpts(width='600px',height='400px'))
+                .add_xaxis(Faker.days_attrs)
+                .add_yaxis("商家A", Faker.days_values)
+                .set_global_opts(
+                    title_opts=opts.TitleOpts(title="Bar-DataZoom（slider-水平）"),
+                    datazoom_opts=opts.DataZoomOpts(),
+                )
+            )
+            c.render('./results/opts9.html')
+    with col2:
+        with open('./results/opts9.html','r') as f:
+            content = f.read()
+            cp.html(content,width=600,height=400,scrolling=True)
+
+    col1,col2 = st.columns([1,1])
+    with col1:
+        with st.echo():
+            c = (
+                Bar(init_opts=opts.InitOpts(width='600px',height='400px'))
+                .add_xaxis(Faker.days_attrs)
+                .add_yaxis("商家A", Faker.days_values, color=Faker.rand_color())
+                .set_global_opts(
+                    title_opts=opts.TitleOpts(title="Bar-DataZoom（slider-垂直）"),
+                    datazoom_opts=opts.DataZoomOpts(orient="vertical"),
+                )
+            )
+            c.render('./results/opts10.html')
+    with col2:
+        with open('./results/opts10.html','r') as f:
+            content = f.read()
+            cp.html(content,width=600,height=400,scrolling=True)
+    
+    col1,col2 = st.columns([1,1])
+    with col1:
+        with st.echo():
+            c = (
+                Bar(init_opts=opts.InitOpts(width='600px',height='400px'))
+                .add_xaxis(Faker.days_attrs)
+                .add_yaxis("商家A", Faker.days_values, color=Faker.rand_color())
+                .set_global_opts(
+                    title_opts=opts.TitleOpts(title="Bar-DataZoom（inside）"),
+                    datazoom_opts=opts.DataZoomOpts(orient="vertical",type_="inside"),
+                )
+            )
+            c.render('./results/opts11.html')
+    with col2:
+        with open('./results/opts11.html','r') as f:
+            content = f.read()
+            cp.html(content,width=600,height=400,scrolling=True)
+    
+    st.markdown("""<h3><center>堆叠数据</center></h3>""",unsafe_allow_html=True)
+    col1,col2 = st.columns([1,1])
+    with col1:
+        with st.echo():
+            c = (
+                Bar(init_opts=opts.InitOpts(width='600px',height='400px'))
+                .add_xaxis(Faker.choose())
+                .add_yaxis("商家A", Faker.values(), stack="stack1")
+                .add_yaxis("商家B", Faker.values(), stack="stack1")
+                .add_yaxis("商家C", Faker.values())
+                .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
+                .set_global_opts(title_opts=opts.TitleOpts(title="Bar-堆叠数据（部分）"))
+            )
+            c.render('./results/opts12.html')
+    with col2:
+        with open('./results/opts12.html','r') as f:
+            content = f.read()
+            cp.html(content,width=600,height=400,scrolling=True)
+    
+    st.markdown("""<h3><center>图表重叠</center></h3>""",unsafe_allow_html=True)
+    col1,col2 = st.columns([1,1])
+    with col1:
+        with st.echo():
+            x_data = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
+            bar = (
+                Bar(init_opts=opts.InitOpts(width="700px", height="600px"))
+                .add_xaxis(xaxis_data=x_data)
+                .add_yaxis(
+                    series_name="蒸发量",
+                    y_axis=[
+                        2.0,
+                        4.9,
+                        7.0,
+                        23.2,
+                        25.6,
+                        76.7,
+                        135.6,
+                        162.2,
+                        32.6,
+                        20.0,
+                        6.4,
+                        3.3,
+                    ],
+                    label_opts=opts.LabelOpts(is_show=False),
+                )
+                .add_yaxis(
+                    series_name="降水量",
+                    y_axis=[
+                        2.6,
+                        5.9,
+                        9.0,
+                        26.4,
+                        28.7,
+                        70.7,
+                        175.6,
+                        182.2,
+                        48.7,
+                        18.8,
+                        6.0,
+                        2.3,
+                    ],
+                    label_opts=opts.LabelOpts(is_show=False),
+                )
+                .extend_axis(
+                    yaxis=opts.AxisOpts(
+                        name="温度",
+                        type_="value",
+                        min_=0,
+                        max_=25,
+                        interval=5,
+                        axislabel_opts=opts.LabelOpts(formatter="{value} °C"),
+                    )
+                )
+                .set_global_opts(
+                    tooltip_opts=opts.TooltipOpts(
+                        is_show=True, trigger="axis", axis_pointer_type="cross"
+                    ),
+                    xaxis_opts=opts.AxisOpts(
+                        type_="category",
+                        axispointer_opts=opts.AxisPointerOpts(is_show=True, type_="shadow"),
+                    ),
+                    yaxis_opts=opts.AxisOpts(
+                        name="水量",
+                        type_="value",
+                        min_=0,
+                        max_=250,
+                        interval=50,
+                        axislabel_opts=opts.LabelOpts(formatter="{value} ml"),
+                        axistick_opts=opts.AxisTickOpts(is_show=True),
+                        splitline_opts=opts.SplitLineOpts(is_show=True),
+                    ),
+                )
+            )
+
+            line = (
+                Line()
+                .add_xaxis(xaxis_data=x_data)
+                .add_yaxis(
+                    series_name="平均温度",
+                    yaxis_index=1,
+                    y_axis=[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2],
+                    label_opts=opts.LabelOpts(is_show=False),
+                )
+            )
+
+            bar.overlap(line).render('./results/opts13.html')
+    with col2:
+        with open('./results/opts13.html','r') as f:
+            content = f.read()
+            cp.html(content,width=800,height=800,scrolling=True)
+    
     
         
             
