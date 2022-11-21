@@ -1,3 +1,4 @@
 pyecharts
 requests
 openpyxl
+streamlit_option_menu

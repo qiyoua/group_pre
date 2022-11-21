@@ -6,17 +6,20 @@ from pyecharts.datasets import register_url
 from pyecharts.globals import BMapType, ChartType
 from pyecharts.charts import BMap
 from pyecharts.globals import GeoType
+from streamlit_option_menu import option_menu
 
 st.set_page_config(layout='wide')
-tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8,tab9 = st.tabs(['1.1.点图:POI数据介绍','1.2.点图POI数据获取','1.3.点图:POI数据可视化','1.4.点图:核酸点的可视化','1.5.点图:空气质量点',
-'2.1.线图:在地图上连线','2.2.线图:绘制路线图','3.1.面图:简单的热力图','3.2.香港人口密度可视化'])
+# tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8,tab9 = st.tabs(['1.1.点图:POI数据介绍','1.2.点图POI数据获取','1.3.点图:POI数据可视化','1.4.点图:核酸点的可视化','1.5.点图:空气质量点',
+# '2.1.线图:在地图上连线','2.2.线图:绘制路线图','3.1.面图:简单的热力图','3.2.香港人口密度可视化'])
 
+with st.sidebar:
+    menu = ['4.1.点图:POI数据介绍','4.2.点图POI数据获取','4.3.点图:POI数据可视化','4.4.点图:核酸点的可视化','4.5.点图:空气质量点',
+'4.6.线图:在地图上连线','4.7.线图:绘制路线图','4.8.面图:简单的热力图','4.9.面图:香港人口密度']
+    opt = option_menu(menu_title='4.空间数据可视化',options=menu,styles='sky')
 
-with tab1:
+if opt == menu[0]:
     st.markdown("""<h5><center>什么是POI数据?</center></h5>""",unsafe_allow_html=True)
-    col1,col2 = st.columns([1.5,1])
-    with col1:
-        st.info(
+    st.info(
         """
 - 概念
 
@@ -35,26 +38,24 @@ POI（一般作为Point of Interest的缩写，也有Point of Information的说�
 复杂的POI数据是常常以json格式保存.`Python`用如下方式来加载json数据集.
 """
         )
-        st.code("""
+    st.code("""
 import json
 with open('covid_test.json','r') as f:
     content = f.read()
 json.loads(content)
         """)
-        cp.iframe('https://map.baidu.com/@12951162,4831749,13z',height=650,scrolling=True)
-
-
-
-        
-    
-    with col2:
+    col1,col2 = st.columns([1,1])
+    with col1:
         # st.markdown(r'<br></br>',unsafe_allow_html=True)
         st.markdown("""<h6><center>一个简单的POI数据集</center></h6>""",unsafe_allow_html=True)
         st.dataframe(pd.read_excel('./results/covid_test.xlsx'))
+    with col2:
         st.markdown("""<h6><center>一个复杂的POI数据集</center></h6>""",unsafe_allow_html=True)
-        st.image('./results/复杂的poi.png')
+        with st.container():
+            st.image('./results/复杂的poi.png',width=400)
+    cp.iframe('https://map.baidu.com/@12951162,4831749,13z',height=650,scrolling=True)  
         
-with tab2:
+if opt == menu[1]:
     st.markdown("""<h5><center>如何获取POI数据</center></h5>""",unsafe_allow_html=True)
     col1,col2 = st.columns([1,1])
     with col1:
@@ -85,7 +86,7 @@ with open('covid_test.json','w') as f:
         """[参考网址](http://guihuayun.com/poi/)""")
         st.image('./results/规划云.png')
        
-with tab3:
+if opt == menu[2]:
     try:
         register_url("https://echarts-maps.github.io/echarts-china-counties-js/")
     except Exception:
@@ -189,7 +190,7 @@ geo = (
     )
                 """)
 
-with tab4:
+if opt == menu[3]:
     st.info(
 """前面我们获取了北京的部分核酸点的POI信息,现在我们将它们在地图上展示出来\n\n"""
 
@@ -253,27 +254,27 @@ poi = [[key,value[-1]] for key,value in zip(res.keys(),res.values())]
             content = f.read()
             cp.html(content,height=800)
 
-with tab5:
+if opt == menu[4]:
     with open('./results/air.html','r') as f:
             content = f.read()
             cp.html(content,height=800,width=1200)
 
-with tab6:
+if opt == menu[5]:
     with open('./results/line1.html','r') as f:
             content = f.read()
             cp.html(content,height=800,width=1200)
 
-with tab7:
+if opt == menu[6]:
     with open('./results/line2.html','r') as f:
             content = f.read()
             cp.html(content,height=1000,width=1200)
 
-with tab8:
+if opt == menu[7]:
     with open('./results/heatmap.html','r') as f:
             content = f.read()
             cp.html(content,height=1000,width=1200)
 
-with tab9:
+if opt == menu[8]:
     with open('./results/hongkong.html','r') as f:
             content = f.read()
             cp.html(content,height=800)

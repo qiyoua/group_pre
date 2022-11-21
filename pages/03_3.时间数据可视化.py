@@ -7,12 +7,31 @@ from pyecharts.commons.utils import JsCode
 from datetime import datetime
 import streamlit as st
 import streamlit.components.v1 as cp
+from streamlit_option_menu import option_menu
 
 st.set_page_config(layout='wide')
-tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8,tab9 = st.tabs(['1.一个简单的折线图','2.在折线图里进行标记','3.指数年度收益率柱状图','4.指数月度收益率柱状图','5.一个简单的k线图',
-'6.添加时间轴的k线图','7.时间点','8.上证综指vs创业板','9.一个复杂的k线图'])
 
-with tab1:
+# tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8,tab9 = st.tabs(['1.一个简单的折线图','2.在折线图里进行标记','3.指数年度收益率柱状图','4.指数月度收益率柱状图','5.一个简单的k线图',
+# '6.添加时间轴的k线图','7.时间与点','8.上证综指vs创业板','9.一个复杂的k线图'])
+
+with st.sidebar:
+    menu = ['3.1.一个简单的折线图','3.2.在折线图里进行标记','3.3.指数年度收益率柱状图','3.4.指数月度收益率柱状图','3.5.一个简单的k线图',
+    '3.6.添加时间轴的k线图','3.7.时间与点','3.8.上证综指vs创业板','3.9.一个复杂的k线图']
+    opt = option_menu(menu_title='3.时间数据可视化',options=menu,styles='sky')
+
+sh = pd.read_csv(r'./results/sh.csv',index_col=0)
+sh.index = sh.index.astype('datetime64[ns]')
+
+index_price = pd.read_csv(r'./results/index_price.csv',index_col=0)
+index_price.index = index_price.index.astype('datetime64[ns]')
+
+df = pd.read_csv(r'./results/df.csv',index_col=0)
+df.index = df.index.astype('datetime64[ns]')
+index_ret=index_price/index_price.shift(1)-1
+ss=index_ret.to_period('Y')
+sss=(ss.groupby(ss.index).apply(lambda x: ((1+x).cumprod()-1).iloc[-1])*100).round(2)
+
+if opt == menu[0]:
     with st.echo():
         import pandas as pd
         import numpy as np
@@ -21,7 +40,6 @@ with tab1:
         import pyecharts.options as opts
         from pyecharts.commons.utils import JsCode
         from datetime import datetime
-
         sh = pd.read_csv(r'./results/sh.csv',index_col=0)
         sh.index = sh.index.astype('datetime64[ns]')
 
@@ -37,7 +55,7 @@ with tab1:
     with open(r'./results/ts1.html') as f:
         cp.html(f.read(),width=1000,height=500)
 
-with tab2:
+if opt == menu[1]:
     with st.echo():
         #不同点位设置不同颜色
         des=sh.close.describe()
@@ -80,7 +98,7 @@ with tab2:
     with open(r'./results/ts2.html') as f:
         cp.html(f.read(),width=1000,height=500)
 
-with tab3:
+if opt == menu[2]:
     with st.echo():
         #index_price.head()
         #指数年度收益率柱状图
@@ -96,7 +114,7 @@ with tab3:
     with open(r'./results/ts3.html') as f:
         cp.html(f.read(),width=1000,height=500)
 
-with tab4:
+if opt == menu[3]:
     with st.echo():    
         g = (Bar()
             .add_xaxis(sss.index.strftime('%Y').tolist())
@@ -114,7 +132,7 @@ with tab4:
     with open(r'./results/ts4.html') as f:
         cp.html(f.read(),width=1000,height=500)
 
-with tab5:
+if opt == menu[4]:
     with st.echo():    
         g = (Kline()
         .add_xaxis(df['2022':].index.strftime('%Y%m%d').tolist()) 
@@ -125,7 +143,7 @@ with tab5:
     with open(r'./results/ts5.html') as f:
         cp.html(f.read(),width=1000,height=500)
 
-with tab6:
+if opt == menu[5]:
     with st.echo():    
         def draw_kline(data):
             g = (Kline()
@@ -153,7 +171,7 @@ with tab6:
     with open(r'./results/ts6.html') as f:
         cp.html(f.read(),width=1000,height=500)
 
-with tab7:
+if opt == menu[6]:
     with st.echo():    
         #创业板和上证综指历年收益率数据
         #sss.head()
@@ -175,7 +193,7 @@ with tab7:
     with open(r'./results/ts7.html') as f:
         cp.html(f.read(),width=1000,height=500)
 
-with tab8:
+if opt == menu[7]:
     with st.echo():    
         g = (
             Scatter()
@@ -199,7 +217,7 @@ with tab8:
     with open(r'./results/ts8.html') as f:
         cp.html(f.read(),width=1000,height=500)
 
-with tab9:
+if opt == menu[8]:
     with st.echo():    
         import pandas as pd
         import numpy as np
@@ -362,6 +380,6 @@ with tab9:
             data.index = data.index.astype('datetime64[ns]')
             plot_kline_volume_signal(data)
     with open(r'./results/ts9.html') as f:
-        cp.html(f.read(),width=1500,height=500)
+        cp.html(f.read(),width=1500,height=1500)
 
     

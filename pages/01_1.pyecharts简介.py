@@ -5,13 +5,18 @@ from pyecharts.charts import Bar,Line
 from pyecharts.commons.utils import JsCode
 from pyecharts.globals import ThemeType
 from pyecharts.globals import RenderType
-from pyecharts.faker import Faker 
+from pyecharts.faker import Faker
+from streamlit_option_menu import option_menu
 
 st.set_page_config(layout='wide')
+with st.sidebar:
+    menu = ['1.1pyecharts介绍','1.2从一个图表看pyecharts的结构','1.3pyecharts图表的配置项']
+    opt = option_menu(menu_title='1.pyecharts简介',options=menu)
 
-tab1,tab2,tab3 = st.tabs(['1.pyecharts介绍','2.从一个图表看pyecharts的结构','3.pyecharts图表的配置项'])
 
-with tab1:
+# tab1,tab2,tab3 = st.tabs(['1.pyecharts介绍','2.从一个图表看pyecharts的结构','3.pyecharts图表的配置项'])
+
+if opt == menu[0]:
     """
     ### 📣 概况
 
@@ -19,7 +24,7 @@ with tab1:
 
     [Echarts](https://github.com/ecomfe/echarts)是一个由百度开源的数据可视化，凭借着良好的交互性，精巧的图表设计，得到了众多开发者的认可。而 Python 是一门富有表达力的语言，很适合用于数据处理。当数据分析遇上数据可视化时，[pyecharts](https://github.com/pyecharts/pyecharts)诞生了。
 
-    pyecharts 是一个用于生成 Echarts 图表的类库。实际上就是 Echarts 与 Python 的对接。使用 pyecharts 可以生成独立的网页，也可以在 flask ， Django 中集成使用。
+    pyecharts 是一个用于生成 Echarts 图表的类库。实际上就是 Echarts 与 Python 的对接。使用 pyecharts 可以生成独立的网页，也可以在 [flask](https://flask.palletsprojects.com/en/2.2.x/) ， [Django](http://www.djangoproject.com/) 中集成使用。
 
     ### ✨ 特性
 
@@ -63,7 +68,7 @@ with tab1:
         """
 
 
-with tab2:
+if opt == menu[1]:
     st.markdown('<h4><center>从简单的图表开始</center></h4>',unsafe_allow_html=True)
     col1,col2 = st.columns([1,1])
     with col1:
@@ -133,7 +138,7 @@ bar.render_notebook()
             st.markdown("""<center>更改主题后的图表</center>""",unsafe_allow_html=True)
             cp.html(f.read(),scrolling=True,height=500)
 
-with tab3:
+if opt == menu[2]:
     st.code("""
     from pyecharts import options as opts
 from pyecharts.charts import Bar,Line
