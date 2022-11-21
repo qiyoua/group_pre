@@ -1,6 +1,5 @@
 import streamlit as st
 import streamlit.components.v1 as cp
-import streamlit_option_menu as som
 from pyecharts import options as opts
 from pyecharts.charts import Bar,Line
 from pyecharts.commons.utils import JsCode
