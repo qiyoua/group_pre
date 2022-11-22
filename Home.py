@@ -28,7 +28,8 @@ st.markdown("""
 <br></br>
 <br></br>
 <br></br>
-<h1><center>这里是小组标题</center></h1>
+<br></br>
+<h1><center>这里是小组标题,还没想好</center></h1>
 <br></br>
 <h3 style="text-align:right">小组成员:车晴 刘雨纯 徐冉 贾吉舒 邱伟明</h3>
 """,unsafe_allow_html=True)
