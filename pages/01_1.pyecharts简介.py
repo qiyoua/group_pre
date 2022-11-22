@@ -10,21 +10,35 @@ from streamlit_option_menu import option_menu
 
 st.set_page_config(layout='wide')
 with st.sidebar:
-    menu = ['1.1pyecharts介绍','1.2从一个图表看pyecharts的结构','1.3pyecharts图表的配置项']
+    menu = ['1.1pyecharts介绍','1.2pyecharts绘图逻辑说明','1.3pyecharts图表的配置项']
     opt = option_menu(menu_title='1.pyecharts简介',options=menu)
 
 
-# tab1,tab2,tab3 = st.tabs(['1.pyecharts介绍','2.从一个图表看pyecharts的结构','3.pyecharts图表的配置项'])
+# tab1,tab2,tab3 = st.tabs(['1.pyecharts介绍','2.pyecharts绘图逻辑说明','3.pyecharts图表的配置项'])
 
 if opt == menu[0]:
     """
     ### 📣 概况
 
-    ECharts是一个纯Javascript的图表库，可以流畅的运行在PC和移动设备上，兼容当前绝大部分浏览器,提供直观、生动、可交互、可高度个性化定制的数据可视化图表。ECharts提供了常规的折线图、柱状图、散点图、饼图、K线图，用于统计的盒形图，用于地理数据可视化的地图、热力图、线图，用于关系数据可视化的关系图、treemap，多维数据可视化的平行坐标，还有用于BI的漏斗图、仪表盘，并且支持图与图之间的混搭。
+    在对数据的掌握及分析变得愈加重要的当今时代，数据可视化作为提高用户对数据的理解程度，创新架构，增进体验的重要一环，一向富有表现力的Python语言应当可以发挥更大作用，优秀的pyechart第三方库即在这样的背景下诞生
+    为了更好理解pyechart的功能，首先为大家介绍Echarts：
 
-    [Echarts](https://github.com/ecomfe/echarts)是一个由百度开源的数据可视化，凭借着良好的交互性，精巧的图表设计，得到了众多开发者的认可。而 Python 是一门富有表达力的语言，很适合用于数据处理。当数据分析遇上数据可视化时，[pyecharts](https://github.com/pyecharts/pyecharts)诞生了。
+    [Echarts](https://github.com/ecomfe/echarts)是一个由百度开源的商业级数据图表，它是一个纯JavaScript的图表库，可以流畅的运行在PC和移动设备上，兼容当前绝大部分浏览器,提供直观、生动、可交互、可高度个性化定制的数据可视化图表。它可以为用户提供直观生动，可交互，可高度个性化定制的数据可视化图表，赋予了用户对数据进行挖掘整合的能力。
+    ECharts提供了常规的折线图、柱状图、散点图、饼图、K线图，用于统计的盒形图，用于地理数据可视化的地图、热力图、线图，用于关系数据可视化的关系图、treemap、旭日图，多维数据可视化的平行坐标，还有用于BI的漏斗图、仪表盘，并且支持图与图之间的混搭。
 
-    pyecharts 是一个用于生成 Echarts 图表的类库。实际上就是 Echarts 与 Python 的对接。使用 pyecharts 可以生成独立的网页，也可以在 [flask](https://flask.palletsprojects.com/en/2.2.x/) ， [Django](http://www.djangoproject.com/) 中集成使用。
+    那么，echarts能做什么呢？
+
+    首先，echarts的图表类型之丰富，绝不亚于市面上常见的付费软件，以至于不少BI系统都是基于echarts搭建。于分析师而言，日常使用最多的折线图、条形图、散点图、饼图等，自然不在话下，同时，还有丰富的扩展项，如南丁格尔玫瑰图：
+    """
+    with open('./results/rose.html','r') as f:
+        cp.html(f.read(),height=400)
+
+    """
+    综上，Echarts拥有开源、高度定制的优点，并且凭借着良好的交互性，精巧的图表设计，得到了众多开发者的认可。但是美中不足的是，ECharts的使用需要有一定的前端开发基础，只是这一点就让很多人望而却步了，对于分析师而言，大部分工作并不会涉及到前端开发，为了使用某个图表学习前端框架和JS语言的成本可能太高了。但不幸中的万幸，有大神为我们开发了一套基于ECharts的开源框架——pyecharts，Python 是一门富有表达力的语言，很适合用于数据处理。当数据分析遇上数据可视化时，pyecharts诞生了。该框架使用python语言编写，函数式传参、简单快捷。在大数据和机器学习概念日益火爆的今天，python已经成为了很多分析师的必备技能，在这一buff加成之下，要学会使用ECharts简直是易如反掌。
+
+    [pyecharts](https://github.com/pyecharts/pyecharts)库是一个用于生成 Echarts 图表的类库。实际上就是 Echarts 与 Python 的对接。使用 pyecharts 可以生成独立的网页，也可以在 flask ， Django 中集成使用。
+
+    
 
     ### ✨ 特性
 
@@ -70,70 +84,71 @@ if opt == menu[0]:
 
 if opt == menu[1]:
     st.markdown('<h4><center>从简单的图表开始</center></h4>',unsafe_allow_html=True)
-    st.markdown('- 创建一个图表,做好以下五步即可',unsafe_allow_html=True)
+    """
+    pyecharts的绘图逻辑分为以下几步。
+
+    ① 选择图表类型；
+
+    ② 声明图形类并添加数据；
+
+    ③ 选择全局变量；
+
+    ④ 显示及保存图表；
+
+    - 第一步
+
+    第一步是选择图表类型，基于自己的数据特点，我们看看自己想要绘制哪种图形，需要什么图形就导入什么图形，下面简单列举了几个导入方法。"""
     st.code("""
-# 1.导入该图表的对象
-from pyecharts.charts import Bar
-
-# 2.实例化图表对象
-bar = Bar()
-
-# 3.给图表添加数据
-bar.add_xaxis(["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"])
-bar.add_yaxis("商家A", [5, 20, 36, 10, 75, 90])
-
-# 4.渲染图表
-bar.render()
-# render 会生成本地 HTML 文件，默认会在当前目录生成 render.html 文件
-# 也可以传入路径参数，如 bar.render("mycharts.html")
-
-# 在notebook里面渲染图表
-bar.render_notebook()
-
-# 5.保存图表
-from pyecharts.render import make_snapshot
-from snapshot_selenium import snapshot
-
-make_snapshot(snapshot, bar.render(), "bar.png")
+from pyecharts.charts import Scatter  # 导入散点图
+from pyecharts.charts import Line     # 导入折线图
+from pyecharts.charts import Pie      # 导入饼图
+from pyecharts.charts import Geo      # 导入地图
     """)
-    """其中几步也可以通过`.`来链式调用"""
+    _,col,_ = st.columns([1,2,1])
+    with col:
+        st.image('./results/charts.png')
+    """- 第二步
+
+    第二步是声明图形类并添加数据，什么是图形类呢？其实每一个图形库都是被pyecharts作者封装成为了一个类，这就是所谓的面向对象，我们在使用这个类的时候，需要实例化这个类(观察下面代码)。声明类之后，相当于初始化了一个画布，我们之后的绘图就是在这个画布上进行。接下来要做的就是添加数据，pyecharts中添加数据共有2种方式，一种是普通方式添加数据，一种是链式调用(观察下面代码)来添加数据。
+    """
+    "下面绘制的是：正弦曲线的散点图"
+    with st.echo():
+        # 1.选择图表类型：我们使用的是散点图，就直接从charts模块中导入Scatter这个图形。
+        from pyecharts.charts import Scatter
+        import numpy as np
+        
+        x = np.linspace(0,2 * np.pi,100)
+        y = np.sin(x)
+        
+        (
+        # 注意：使用什么图形，就要实例化该图形的类；
+        # 2.我们绘制的是Scatter散点图，就需要实例化散点图类，直接Scatter() 即可；
+        Scatter() 
+        # 实例化类后，接着就是添加数据，下面这种方式就是使用“链式调用”的方式绘图；
+        # 注意：散点图有X、Y轴，因此需要分别给X轴、Y轴添加数据；
+        # 3.我们先给X轴添加数据；
+        .add_xaxis(xaxis_data=x)
+        # 4.我们再给Y轴添加数据；
+        .add_yaxis(series_name="这是图例",y_axis=y)
+        ).render('./results/scatter.html')
+    with open('./results/scatter.html','r') as f:
+        cp.html(f.read(),height=500)
+    """- 第三步"""
+    """第三步就是设置全局变量，用通俗的话说就是：调节各种各样的参数，把图形变得更好看。常用的有标题配置项、图例配置项、工具配置项、视觉映射配置项、提示框配置项、区域缩放配置项。"""
+    """- 第四步"""
+    """第四步是显示及保存图表，我们这里介绍两种最常用的保存方式，如下所示。"""
     st.code("""
-from pyecharts.charts import Bar
+.render("C:\\Users\\黄伟\\Desktop\\CSDN上传图像\\a.html")
+# 如果不指定路径，就是直接保存在当前工作环境目录下；
+# 如果指定了路径，就是保存到指定的目录下；
+# 注意：最终都是以html格式展示，发给其他任何人都可以直接打开看的；
+ 
+.render_notebook()
+# 如果我们使用的是jupyter notebook，直接使用这行代码，可以直接显示图片""")
 
-bar = (
-    Bar()
-    .add_xaxis(["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"])
-    .add_yaxis("商家A", [5, 20, 36, 10, 75, 90])
-    .render('sample_bar.html')
-)
-    """)
-
-    with open('./results/sample_bar.html','r') as f:
-        st.caption("""<center>由上边的代码生成的一个简单的柱状图</center>""",unsafe_allow_html=True)
-        cp.html(f.read(),scrolling=True,height=500)
-   
-    """- 也可以更改图表主题"""
-    st.code("""
-from pyecharts.charts import Bar
-from pyecharts import options as opts
-# 内置主题类型可查看 pyecharts.globals.ThemeType
-from pyecharts.globals import ThemeType
-
-bar = (
-    Bar(init_opts=opts.InitOpts(theme=ThemeType.LIGHT))
-    .add_xaxis(["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"])
-    .add_yaxis("商家A", [5, 20, 36, 10, 75, 90])
-    .add_yaxis("商家B", [15, 6, 45, 20, 35, 66])
-    .set_global_opts(title_opts=opts.TitleOpts(title="主标题", subtitle="副标题")))
-bar.render_notebook()
-        """)
-    with open('./results/theme.html','r') as f:
-        st.markdown("""更改主题后的图表""",unsafe_allow_html=True)
-        cp.html(f.read(),scrolling=True,height=500)
-    """- 其他的一些图表"""
-    st.image('图表.png')
 
 if opt == menu[2]:
+    
     st.code("""
     from pyecharts import options as opts
 from pyecharts.charts import Bar,Line
@@ -497,7 +512,8 @@ from pyecharts.faker import Faker
         bar.overlap(line).render('./results/opts13.html')
     with open('./results/opts13.html','r') as f:
         content = f.read()
-        cp.html(content,width=1000,height=800,scrolling=True)
+        cp.html(content,width=1000,height=600,scrolling=True)
+   
     
     
         
