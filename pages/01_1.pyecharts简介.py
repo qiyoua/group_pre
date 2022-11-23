@@ -160,7 +160,7 @@ from pyecharts.charts import Geo      # 导入地图
         # 3.我们先给X轴添加数据；
         .add_xaxis(xaxis_data=x)
         # 4.我们再给Y轴添加数据；
-        .add_yaxis(series_name="这是图例",y_axis=y)
+        .add_yaxis(series_name="序列名",y_axis=y)
         ).render('./results/scatter.html')
     with open('./results/scatter.html','r') as f:
         cp.html(f.read(),height=500)

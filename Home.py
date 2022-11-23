@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as cp
 from streamlit_option_menu import option_menu
 
-st.set_page_config(layout='wide')
+st.set_page_config(layout='wide',initial_sidebar_state='collapsed')
 
 def set_bg_hack_url():
     '''
