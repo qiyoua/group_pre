@@ -10,6 +10,26 @@ import streamlit.components.v1 as cp
 from streamlit_option_menu import option_menu
 
 st.set_page_config(layout='wide')
+def set_bg_hack_url():
+    '''
+    A function to unpack an image from url and set as bg.
+    Returns
+    -------
+    The background.
+    '''
+        
+    st.markdown(
+         f"""
+         <style>
+         .stApp {{
+             background: url("https://www.beihaiting.com/uploads/allimg/150528/10723-15052QF335K6.jpg");
+             background-size: cover
+         }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
+# set_bg_hack_url()
 
 # tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8,tab9 = st.tabs(['1.一个简单的折线图','2.在折线图里进行标记','3.指数年度收益率柱状图','4.指数月度收益率柱状图','5.一个简单的k线图',
 # '6.添加时间轴的k线图','7.时间与点','8.上证综指vs创业板','9.一个复杂的k线图'])

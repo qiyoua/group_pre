@@ -6,6 +6,26 @@ import numpy as np
 
 
 st.set_page_config(layout='wide')
+def set_bg_hack_url():
+    '''
+    A function to unpack an image from url and set as bg.
+    Returns
+    -------
+    The background.
+    '''
+        
+    st.markdown(
+         f"""
+         <style>
+         .stApp {{
+             background: url("https://www.beihaiting.com/uploads/allimg/150528/10723-15052QF335K6.jpg");
+             background-size: cover
+         }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
+# set_bg_hack_url()
 
 with st.sidebar:
     menu = ['2.1.数据介绍','2.2.图的布局','2.3.3d柱状图与热图',
@@ -67,7 +87,7 @@ if opt == menu[1]:
     with open('./results/hl1.html','r') as f:
         cp.html(f.read(),height=500,width=1000)
     
-    """- 图形的并列"""
+    """- 图形的缩放"""
     with st.echo():
         from pyecharts.faker import Faker
         import pyecharts.options as opts
