@@ -40,18 +40,18 @@
         }
     </style>
     <div class="tab">
-            <button class="tablinks" onclick="showChart(event, '70a3172e367f43c9b77c5cdae713ea7b')">bar-example</button>
-            <button class="tablinks" onclick="showChart(event, '9b74af18f49b46b89b7e22a42987e51a')">line-example</button>
-            <button class="tablinks" onclick="showChart(event, '7683f3987f7c455d9ceab33f2ec09d45')">pie-example</button>
-            <button class="tablinks" onclick="showChart(event, '5f70001a531a4d59b7ce75b1bfa935f3')">table-example</button>
+            <button class="tablinks" onclick="showChart(event, 'ecb56ad9c4754ea29bee190d9f4024b2')">bar</button>
+            <button class="tablinks" onclick="showChart(event, 'f32857636ee64f25a755c05851dcd52b')">line</button>
+            <button class="tablinks" onclick="showChart(event, 'f9856007659f49a1872fc75ba5b701a8')">pie</button>
+            <button class="tablinks" onclick="showChart(event, 'b49654083205428c9c9017f780206dad')">table</button>
     </div>
 
     <div class="box">
-                <div id="70a3172e367f43c9b77c5cdae713ea7b" class="chart-container" style="width:900px; height:500px;"></div>
+                <div id="ecb56ad9c4754ea29bee190d9f4024b2" class="chart-container" style="width:900px; height:500px;"></div>
     <script>
-        var chart_70a3172e367f43c9b77c5cdae713ea7b = echarts.init(
-            document.getElementById('70a3172e367f43c9b77c5cdae713ea7b'), 'white', {renderer: 'canvas'});
-        var option_70a3172e367f43c9b77c5cdae713ea7b = {
+        var chart_ecb56ad9c4754ea29bee190d9f4024b2 = echarts.init(
+            document.getElementById('ecb56ad9c4754ea29bee190d9f4024b2'), 'white', {renderer: 'canvas'});
+        var option_ecb56ad9c4754ea29bee190d9f4024b2 = {
     "animation": true,
     "animationThreshold": 2000,
     "animationDuration": 1000,
@@ -89,39 +89,25 @@
     "series": [
         {
             "type": "bar",
-            "name": "\u5546\u5bb6A",
+            "name": "\u610f\u5c14\u5eb7\u76ae\u978b\u65d7\u8230\u5e97",
             "legendHoverLink": true,
             "data": [
-                20,
-                14,
-                5,
-                14,
-                5,
-                20,
-                12,
-                15,
-                12,
-                14,
-                14,
-                7,
-                1,
-                19,
-                9,
-                7,
-                6,
-                12,
-                24,
-                24,
-                8,
-                16,
-                12,
-                28,
-                4,
-                12,
-                11,
-                2,
-                7,
-                24
+                3.0,
+                1.0,
+                87.0,
+                8.0,
+                38.0,
+                3.0,
+                91.0,
+                4.0,
+                7.0,
+                18.0,
+                7.0,
+                8.0,
+                9.0,
+                3.0,
+                2.0,
+                0.0
             ],
             "showBackground": false,
             "barMinHeight": 0,
@@ -142,39 +128,25 @@
         },
         {
             "type": "bar",
-            "name": "\u5546\u5bb6B",
+            "name": "\u7c73\u5170\u591a\u683c\u5546\u573a",
             "legendHoverLink": true,
             "data": [
-                20,
-                14,
-                5,
-                14,
-                5,
-                20,
-                12,
-                15,
-                12,
-                14,
-                14,
-                7,
-                1,
-                19,
-                9,
-                7,
-                6,
-                12,
-                24,
-                24,
-                8,
-                16,
-                12,
-                28,
-                4,
-                12,
-                11,
-                2,
-                7,
-                24
+                1.0,
+                0.0,
+                108.0,
+                0.0,
+                9.0,
+                0.0,
+                11.0,
+                0.0,
+                0.0,
+                18.0,
+                0.0,
+                8.0,
+                0.0,
+                1.0,
+                0.0,
+                2.0
             ],
             "showBackground": false,
             "barMinHeight": 0,
@@ -197,12 +169,12 @@
     "legend": [
         {
             "data": [
-                "\u5546\u5bb6A",
-                "\u5546\u5bb6B"
+                "\u610f\u5c14\u5eb7\u76ae\u978b\u65d7\u8230\u5e97",
+                "\u7c73\u5170\u591a\u683c\u5546\u573a"
             ],
             "selected": {
-                "\u5546\u5bb6A": true,
-                "\u5546\u5bb6B": true
+                "\u610f\u5c14\u5eb7\u76ae\u978b\u65d7\u8230\u5e97": true,
+                "\u7c73\u5170\u591a\u683c\u5546\u573a": true
             },
             "show": true,
             "padding": 5,
@@ -250,36 +222,22 @@
                 }
             },
             "data": [
-                "0\u5929",
-                "1\u5929",
-                "2\u5929",
-                "3\u5929",
-                "4\u5929",
-                "5\u5929",
-                "6\u5929",
-                "7\u5929",
-                "8\u5929",
-                "9\u5929",
-                "10\u5929",
-                "11\u5929",
-                "12\u5929",
-                "13\u5929",
-                "14\u5929",
-                "15\u5929",
-                "16\u5929",
-                "17\u5929",
-                "18\u5929",
-                "19\u5929",
-                "20\u5929",
-                "21\u5929",
-                "22\u5929",
-                "23\u5929",
-                "24\u5929",
-                "25\u5929",
-                "26\u5929",
-                "27\u5929",
-                "28\u5929",
-                "29\u5929"
+                "\u4e50\u798f\u978b",
+                "\u4f10\u6728\u978b",
+                "\u4f11\u95f2\u76ae\u978b",
+                "\u4f11\u95f2\u9ad8\u5e2e\u76ae\u978b",
+                "\u5546\u52a1\u4f11\u95f2\u978b",
+                "\u5e03\u6d1b\u514b\u978b",
+                "\u5fb7\u6bd4\u978b\uff08\u6b63\u88c5\u76ae\u978b\uff09",
+                "\u61d2\u4eba\u978b",
+                "\u6237\u5916\u4f11\u95f2\u978b",
+                "\u677f\u978b",
+                "\u6c99\u6ee9\u978b",
+                "\u8c46\u8c46\u978b",
+                "\u8fd0\u52a8\u4f11\u95f2\u978b",
+                "\u9542\u7a7a\u76ae\u978b",
+                "\u9ad8\u5e2e\u677f\u978b",
+                "\u5de5\u88c5\u978b"
             ]
         }
     ],
@@ -308,7 +266,7 @@
     ],
     "title": [
         {
-            "text": "Bar-DataZoom\uff08slider-\u6c34\u5e73\uff09",
+            "text": "\u67f1\u72b6\u56fe",
             "padding": 5,
             "itemGap": 10
         }
@@ -326,13 +284,13 @@
         }
     ]
 };
-        chart_70a3172e367f43c9b77c5cdae713ea7b.setOption(option_70a3172e367f43c9b77c5cdae713ea7b);
+        chart_ecb56ad9c4754ea29bee190d9f4024b2.setOption(option_ecb56ad9c4754ea29bee190d9f4024b2);
     </script>
-                <div id="9b74af18f49b46b89b7e22a42987e51a" class="chart-container" style="width:900px; height:500px;"></div>
+                <div id="f32857636ee64f25a755c05851dcd52b" class="chart-container" style="width:900px; height:500px;"></div>
     <script>
-        var chart_9b74af18f49b46b89b7e22a42987e51a = echarts.init(
-            document.getElementById('9b74af18f49b46b89b7e22a42987e51a'), 'white', {renderer: 'canvas'});
-        var option_9b74af18f49b46b89b7e22a42987e51a = {
+        var chart_f32857636ee64f25a755c05851dcd52b = echarts.init(
+            document.getElementById('f32857636ee64f25a755c05851dcd52b'), 'white', {renderer: 'canvas'});
+        var option_f32857636ee64f25a755c05851dcd52b = {
     "animation": true,
     "animationThreshold": 2000,
     "animationDuration": 1000,
@@ -370,7 +328,7 @@
     "series": [
         {
             "type": "line",
-            "name": "\u5546\u5bb6A",
+            "name": "\u610f\u5c14\u5eb7\u76ae\u978b\u65d7\u8230\u5e97",
             "connectNulls": false,
             "symbolSize": 4,
             "showSymbol": true,
@@ -379,32 +337,68 @@
             "step": false,
             "data": [
                 [
-                    "\u5468\u4e00",
-                    128
+                    "\u4e50\u798f\u978b",
+                    3.0
                 ],
                 [
-                    "\u5468\u4e8c",
-                    108
+                    "\u4f10\u6728\u978b",
+                    1.0
                 ],
                 [
-                    "\u5468\u4e09",
-                    34
+                    "\u4f11\u95f2\u76ae\u978b",
+                    87.0
                 ],
                 [
-                    "\u5468\u56db",
-                    88
+                    "\u4f11\u95f2\u9ad8\u5e2e\u76ae\u978b",
+                    8.0
                 ],
                 [
-                    "\u5468\u4e94",
-                    93
+                    "\u5546\u52a1\u4f11\u95f2\u978b",
+                    38.0
                 ],
                 [
-                    "\u5468\u516d",
-                    27
+                    "\u5e03\u6d1b\u514b\u978b",
+                    3.0
                 ],
                 [
-                    "\u5468\u65e5",
-                    43
+                    "\u5fb7\u6bd4\u978b\uff08\u6b63\u88c5\u76ae\u978b\uff09",
+                    91.0
+                ],
+                [
+                    "\u61d2\u4eba\u978b",
+                    4.0
+                ],
+                [
+                    "\u6237\u5916\u4f11\u95f2\u978b",
+                    7.0
+                ],
+                [
+                    "\u677f\u978b",
+                    18.0
+                ],
+                [
+                    "\u6c99\u6ee9\u978b",
+                    7.0
+                ],
+                [
+                    "\u8c46\u8c46\u978b",
+                    8.0
+                ],
+                [
+                    "\u8fd0\u52a8\u4f11\u95f2\u978b",
+                    9.0
+                ],
+                [
+                    "\u9542\u7a7a\u76ae\u978b",
+                    3.0
+                ],
+                [
+                    "\u9ad8\u5e2e\u677f\u978b",
+                    2.0
+                ],
+                [
+                    "\u5de5\u88c5\u978b",
+                    0.0
                 ]
             ],
             "hoverAnimation": true,
@@ -441,7 +435,7 @@
         },
         {
             "type": "line",
-            "name": "\u5546\u5bb6B",
+            "name": "\u7c73\u5170\u591a\u683c\u5546\u573a",
             "connectNulls": false,
             "symbolSize": 4,
             "showSymbol": true,
@@ -450,32 +444,68 @@
             "step": false,
             "data": [
                 [
-                    "\u5468\u4e00",
-                    114
+                    "\u4e50\u798f\u978b",
+                    1.0
                 ],
                 [
-                    "\u5468\u4e8c",
-                    49
+                    "\u4f10\u6728\u978b",
+                    0.0
                 ],
                 [
-                    "\u5468\u4e09",
-                    74
+                    "\u4f11\u95f2\u76ae\u978b",
+                    108.0
                 ],
                 [
-                    "\u5468\u56db",
-                    146
+                    "\u4f11\u95f2\u9ad8\u5e2e\u76ae\u978b",
+                    0.0
                 ],
                 [
-                    "\u5468\u4e94",
-                    117
+                    "\u5546\u52a1\u4f11\u95f2\u978b",
+                    9.0
                 ],
                 [
-                    "\u5468\u516d",
-                    101
+                    "\u5e03\u6d1b\u514b\u978b",
+                    0.0
                 ],
                 [
-                    "\u5468\u65e5",
-                    149
+                    "\u5fb7\u6bd4\u978b\uff08\u6b63\u88c5\u76ae\u978b\uff09",
+                    11.0
+                ],
+                [
+                    "\u61d2\u4eba\u978b",
+                    0.0
+                ],
+                [
+                    "\u6237\u5916\u4f11\u95f2\u978b",
+                    0.0
+                ],
+                [
+                    "\u677f\u978b",
+                    18.0
+                ],
+                [
+                    "\u6c99\u6ee9\u978b",
+                    0.0
+                ],
+                [
+                    "\u8c46\u8c46\u978b",
+                    8.0
+                ],
+                [
+                    "\u8fd0\u52a8\u4f11\u95f2\u978b",
+                    0.0
+                ],
+                [
+                    "\u9542\u7a7a\u76ae\u978b",
+                    1.0
+                ],
+                [
+                    "\u9ad8\u5e2e\u677f\u978b",
+                    0.0
+                ],
+                [
+                    "\u5de5\u88c5\u978b",
+                    2.0
                 ]
             ],
             "hoverAnimation": true,
@@ -514,12 +544,12 @@
     "legend": [
         {
             "data": [
-                "\u5546\u5bb6A",
-                "\u5546\u5bb6B"
+                "\u610f\u5c14\u5eb7\u76ae\u978b\u65d7\u8230\u5e97",
+                "\u7c73\u5170\u591a\u683c\u5546\u573a"
             ],
             "selected": {
-                "\u5546\u5bb6A": true,
-                "\u5546\u5bb6B": true
+                "\u610f\u5c14\u5eb7\u76ae\u978b\u65d7\u8230\u5e97": true,
+                "\u7c73\u5170\u591a\u683c\u5546\u573a": true
             },
             "show": true,
             "padding": 5,
@@ -567,13 +597,22 @@
                 }
             },
             "data": [
-                "\u5468\u4e00",
-                "\u5468\u4e8c",
-                "\u5468\u4e09",
-                "\u5468\u56db",
-                "\u5468\u4e94",
-                "\u5468\u516d",
-                "\u5468\u65e5"
+                "\u4e50\u798f\u978b",
+                "\u4f10\u6728\u978b",
+                "\u4f11\u95f2\u76ae\u978b",
+                "\u4f11\u95f2\u9ad8\u5e2e\u76ae\u978b",
+                "\u5546\u52a1\u4f11\u95f2\u978b",
+                "\u5e03\u6d1b\u514b\u978b",
+                "\u5fb7\u6bd4\u978b\uff08\u6b63\u88c5\u76ae\u978b\uff09",
+                "\u61d2\u4eba\u978b",
+                "\u6237\u5916\u4f11\u95f2\u978b",
+                "\u677f\u978b",
+                "\u6c99\u6ee9\u978b",
+                "\u8c46\u8c46\u978b",
+                "\u8fd0\u52a8\u4f11\u95f2\u978b",
+                "\u9542\u7a7a\u76ae\u978b",
+                "\u9ad8\u5e2e\u677f\u978b",
+                "\u5de5\u88c5\u978b"
             ]
         }
     ],
@@ -602,19 +641,19 @@
     ],
     "title": [
         {
-            "text": "Line-MarkPoint",
+            "text": "\u6298\u7ebf\u56fe",
             "padding": 5,
             "itemGap": 10
         }
     ]
 };
-        chart_9b74af18f49b46b89b7e22a42987e51a.setOption(option_9b74af18f49b46b89b7e22a42987e51a);
+        chart_f32857636ee64f25a755c05851dcd52b.setOption(option_f32857636ee64f25a755c05851dcd52b);
     </script>
-                <div id="7683f3987f7c455d9ceab33f2ec09d45" class="chart-container" style="width:900px; height:500px;"></div>
+                <div id="f9856007659f49a1872fc75ba5b701a8" class="chart-container" style="width:900px; height:500px;"></div>
     <script>
-        var chart_7683f3987f7c455d9ceab33f2ec09d45 = echarts.init(
-            document.getElementById('7683f3987f7c455d9ceab33f2ec09d45'), 'white', {renderer: 'canvas'});
-        var option_7683f3987f7c455d9ceab33f2ec09d45 = {
+        var chart_f9856007659f49a1872fc75ba5b701a8 = echarts.init(
+            document.getElementById('f9856007659f49a1872fc75ba5b701a8'), 'white', {renderer: 'canvas'});
+        var option_f9856007659f49a1872fc75ba5b701a8 = {
     "animation": true,
     "animationThreshold": 2000,
     "animationDuration": 1000,
@@ -655,32 +694,68 @@
             "clockwise": true,
             "data": [
                 {
-                    "name": "\u5c0f\u7c73",
-                    "value": 67
+                    "name": "\u4e50\u798f\u978b",
+                    "value": 3.0
                 },
                 {
-                    "name": "\u4e09\u661f",
-                    "value": 126
+                    "name": "\u4f10\u6728\u978b",
+                    "value": 1.0
                 },
                 {
-                    "name": "\u534e\u4e3a",
-                    "value": 135
+                    "name": "\u4f11\u95f2\u76ae\u978b",
+                    "value": 87.0
                 },
                 {
-                    "name": "\u82f9\u679c",
-                    "value": 113
+                    "name": "\u4f11\u95f2\u9ad8\u5e2e\u76ae\u978b",
+                    "value": 8.0
                 },
                 {
-                    "name": "\u9b45\u65cf",
-                    "value": 113
+                    "name": "\u5546\u52a1\u4f11\u95f2\u978b",
+                    "value": 38.0
                 },
                 {
-                    "name": "VIVO",
-                    "value": 75
+                    "name": "\u5e03\u6d1b\u514b\u978b",
+                    "value": 3.0
                 },
                 {
-                    "name": "OPPO",
-                    "value": 42
+                    "name": "\u5fb7\u6bd4\u978b\uff08\u6b63\u88c5\u76ae\u978b\uff09",
+                    "value": 91.0
+                },
+                {
+                    "name": "\u61d2\u4eba\u978b",
+                    "value": 4.0
+                },
+                {
+                    "name": "\u6237\u5916\u4f11\u95f2\u978b",
+                    "value": 7.0
+                },
+                {
+                    "name": "\u677f\u978b",
+                    "value": 18.0
+                },
+                {
+                    "name": "\u6c99\u6ee9\u978b",
+                    "value": 7.0
+                },
+                {
+                    "name": "\u8c46\u8c46\u978b",
+                    "value": 8.0
+                },
+                {
+                    "name": "\u8fd0\u52a8\u4f11\u95f2\u978b",
+                    "value": 9.0
+                },
+                {
+                    "name": "\u9542\u7a7a\u76ae\u978b",
+                    "value": 3.0
+                },
+                {
+                    "name": "\u9ad8\u5e2e\u677f\u978b",
+                    "value": 2.0
+                },
+                {
+                    "name": "\u5de5\u88c5\u978b",
+                    "value": 0.0
                 }
             ],
             "radius": [
@@ -703,32 +778,68 @@
             "clockwise": true,
             "data": [
                 {
-                    "name": "\u5c0f\u7c73",
-                    "value": 130
+                    "name": "\u4e50\u798f\u978b",
+                    "value": 3.0
                 },
                 {
-                    "name": "\u4e09\u661f",
-                    "value": 72
+                    "name": "\u4f10\u6728\u978b",
+                    "value": 1.0
                 },
                 {
-                    "name": "\u534e\u4e3a",
-                    "value": 119
+                    "name": "\u4f11\u95f2\u76ae\u978b",
+                    "value": 87.0
                 },
                 {
-                    "name": "\u82f9\u679c",
-                    "value": 76
+                    "name": "\u4f11\u95f2\u9ad8\u5e2e\u76ae\u978b",
+                    "value": 8.0
                 },
                 {
-                    "name": "\u9b45\u65cf",
-                    "value": 59
+                    "name": "\u5546\u52a1\u4f11\u95f2\u978b",
+                    "value": 38.0
                 },
                 {
-                    "name": "VIVO",
-                    "value": 69
+                    "name": "\u5e03\u6d1b\u514b\u978b",
+                    "value": 3.0
                 },
                 {
-                    "name": "OPPO",
-                    "value": 73
+                    "name": "\u5fb7\u6bd4\u978b\uff08\u6b63\u88c5\u76ae\u978b\uff09",
+                    "value": 91.0
+                },
+                {
+                    "name": "\u61d2\u4eba\u978b",
+                    "value": 4.0
+                },
+                {
+                    "name": "\u6237\u5916\u4f11\u95f2\u978b",
+                    "value": 7.0
+                },
+                {
+                    "name": "\u677f\u978b",
+                    "value": 18.0
+                },
+                {
+                    "name": "\u6c99\u6ee9\u978b",
+                    "value": 7.0
+                },
+                {
+                    "name": "\u8c46\u8c46\u978b",
+                    "value": 8.0
+                },
+                {
+                    "name": "\u8fd0\u52a8\u4f11\u95f2\u978b",
+                    "value": 9.0
+                },
+                {
+                    "name": "\u9542\u7a7a\u76ae\u978b",
+                    "value": 3.0
+                },
+                {
+                    "name": "\u9ad8\u5e2e\u677f\u978b",
+                    "value": 2.0
+                },
+                {
+                    "name": "\u5de5\u88c5\u978b",
+                    "value": 0.0
                 }
             ],
             "radius": [
@@ -750,13 +861,22 @@
     "legend": [
         {
             "data": [
-                "\u5c0f\u7c73",
-                "\u4e09\u661f",
-                "\u534e\u4e3a",
-                "\u82f9\u679c",
-                "\u9b45\u65cf",
-                "VIVO",
-                "OPPO"
+                "\u4e50\u798f\u978b",
+                "\u4f10\u6728\u978b",
+                "\u4f11\u95f2\u76ae\u978b",
+                "\u4f11\u95f2\u9ad8\u5e2e\u76ae\u978b",
+                "\u5546\u52a1\u4f11\u95f2\u978b",
+                "\u5e03\u6d1b\u514b\u978b",
+                "\u5fb7\u6bd4\u978b\uff08\u6b63\u88c5\u76ae\u978b\uff09",
+                "\u61d2\u4eba\u978b",
+                "\u6237\u5916\u4f11\u95f2\u978b",
+                "\u677f\u978b",
+                "\u6c99\u6ee9\u978b",
+                "\u8c46\u8c46\u978b",
+                "\u8fd0\u52a8\u4f11\u95f2\u978b",
+                "\u9542\u7a7a\u76ae\u978b",
+                "\u9ad8\u5e2e\u677f\u978b",
+                "\u5de5\u88c5\u978b"
             ],
             "selected": {},
             "show": true,
@@ -785,13 +905,12 @@
     },
     "title": [
         {
-            "text": "Pie-\u73ab\u7470\u56fe\u793a\u4f8b",
             "padding": 5,
             "itemGap": 10
         }
     ]
 };
-        chart_7683f3987f7c455d9ceab33f2ec09d45.setOption(option_7683f3987f7c455d9ceab33f2ec09d45);
+        chart_f9856007659f49a1872fc75ba5b701a8.setOption(option_f9856007659f49a1872fc75ba5b701a8);
     </script>
                         <style>
             .fl-table {
@@ -845,60 +964,97 @@
                 background: #F8F8F8;
             }
         </style>
-        <div id="5f70001a531a4d59b7ce75b1bfa935f3" class="chart-container" style="">
+        <div id="b49654083205428c9c9017f780206dad" class="chart-container" style="">
             <p class="title" style="font-size: 18px; font-weight:bold;" > Table</p>
             <p class="subtitle" style="font-size: 12px;" > </p>
             <table class="fl-table">
     <thead>
         <tr>
-            <th>City name</th>
-            <th>Area</th>
-            <th>Population</th>
-            <th>Annual Rainfall</th>
+            <th>款式</th>
+            <th>意尔康皮鞋旗舰店</th>
+            <th>米兰多格商场</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>Brisbane</td>
-            <td>5905</td>
-            <td>1857594</td>
-            <td>1146.4</td>
+            <td>乐福鞋</td>
+            <td>3.0</td>
+            <td>1.0</td>
         </tr>
         <tr>
-            <td>Adelaide</td>
-            <td>1295</td>
-            <td>1158259</td>
-            <td>600.5</td>
+            <td>伐木鞋</td>
+            <td>1.0</td>
+            <td>0.0</td>
         </tr>
         <tr>
-            <td>Darwin</td>
-            <td>112</td>
-            <td>120900</td>
-            <td>1714.7</td>
+            <td>休闲皮鞋</td>
+            <td>87.0</td>
+            <td>108.0</td>
         </tr>
         <tr>
-            <td>Hobart</td>
-            <td>1357</td>
-            <td>205556</td>
-            <td>619.5</td>
+            <td>休闲高帮皮鞋</td>
+            <td>8.0</td>
+            <td>0.0</td>
         </tr>
         <tr>
-            <td>Sydney</td>
-            <td>2058</td>
-            <td>4336374</td>
-            <td>1214.8</td>
+            <td>商务休闲鞋</td>
+            <td>38.0</td>
+            <td>9.0</td>
         </tr>
         <tr>
-            <td>Melbourne</td>
-            <td>1566</td>
-            <td>3806092</td>
-            <td>646.9</td>
+            <td>布洛克鞋</td>
+            <td>3.0</td>
+            <td>0.0</td>
         </tr>
         <tr>
-            <td>Perth</td>
-            <td>5386</td>
-            <td>1554769</td>
-            <td>869.4</td>
+            <td>德比鞋（正装皮鞋）</td>
+            <td>91.0</td>
+            <td>11.0</td>
+        </tr>
+        <tr>
+            <td>懒人鞋</td>
+            <td>4.0</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>户外休闲鞋</td>
+            <td>7.0</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>板鞋</td>
+            <td>18.0</td>
+            <td>18.0</td>
+        </tr>
+        <tr>
+            <td>沙滩鞋</td>
+            <td>7.0</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>豆豆鞋</td>
+            <td>8.0</td>
+            <td>8.0</td>
+        </tr>
+        <tr>
+            <td>运动休闲鞋</td>
+            <td>9.0</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>镂空皮鞋</td>
+            <td>3.0</td>
+            <td>1.0</td>
+        </tr>
+        <tr>
+            <td>高帮板鞋</td>
+            <td>2.0</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>工装鞋</td>
+            <td>0.0</td>
+            <td>2.0</td>
         </tr>
     </tbody>
 </table>

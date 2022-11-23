@@ -37,14 +37,61 @@ t2=a[a.nick=="米兰多格商场"].groupby("info.款式").size()
 p0=pd.concat([t1,t2],axis=1,sort=False).fillna(0)
 
 if opt == menu[0]:
-    """- 多维数据的可视化的概念"""
-    """所谓多维，就是数据不仅仅有x,y两列，而是有多列数据特征需要展示。这里主要分为两类展示方法，一类是用多张图展示多个数据，一类是一张图上展示多列数据。"""
+    """# 多维数据的可视化"""
+    """
+1.概念
+* 所谓多维，就是数据不仅仅有x,y两列，而是有多列数据特征需要展示。这里主要分为两类展示方法，一类是用多张图展示多个数据，一类是一张图上展示多列数据。
+
+2.数据来源
+* 所用的数据为2017年从淘宝爬取的男鞋销售情况
+
+3.数据包含的属性
+
+* 鞋子上市年份季节  
+* 上市时间
+* 低帮鞋品名
+* 鞋子功能
+* 吊牌价
+* 品牌 
+* 图案
+* 上市年份季节 
+* 上市时间
+* ...
+* 颜色分类
+* 风格
+* price
+
+4.代码、代码结果和代码分析如下
+"""
+
     """- shoes数据集"""
     st.dataframe(a.head(1))
     """- 以店铺的商品数量排序"""
     st.code(a.groupby("nick").size().sort_values(ascending=False))
     """- 查看数据集的特征"""
     st.code(a.columns)
+    """
+    * 计算上面排名前二的两个商家各个款式的对应的商品数量，并且组成矩阵，使得第一列是"意尔康皮鞋旗舰店"对应的商品数量，第二列是"米兰多格商场"对应的商品数量 （注意为什么要组成数据框，这是为了可以让索引对齐）
+    """
+    with st.echo():
+        t1=a[a.nick=="意尔康皮鞋旗舰店"].groupby("info.款式").size()
+        t2=a[a.nick=="米兰多格商场"].groupby("info.款式").size()
+        p0=pd.concat([t1,t2],axis=1,sort=False).fillna(0)
+    st.dataframe(p0.T)
+    with st.echo():
+        from pyecharts.globals import ThemeType
+        from pyecharts.faker import Faker
+        from pyecharts import options as opts
+        from pyecharts.charts import Bar
+
+        bar = Bar(init_opts=opts.InitOpts(theme=ThemeType.PURPLE_PASSION))
+        bar.add_xaxis(p0[0].index.tolist())
+        bar.add_yaxis("意尔康皮鞋旗舰店", p0[0].tolist())
+        bar.add_yaxis("米兰多格商场", p0[1].tolist())
+        bar.set_global_opts(title_opts=opts.TitleOpts(title="两个商场的销售情况",subtitle="意尔康皮鞋旗舰店、米兰多格商场"),toolbox_opts=opts.ToolboxOpts())
+        bar.render('./results/bar1.html')  #切换成柱状图
+    with open('./results/bar1.html','r') as f:
+        cp.html(f.read(),height=800,width=1000)
     
 if opt == menu[1]:
     """- 图形的并列"""
@@ -86,22 +133,48 @@ if opt == menu[1]:
     with open('./results/hl1.html','r') as f:
         cp.html(f.read(),height=500,width=1000)
     
+    with st.echo():
+        from pyecharts.charts import Bar, Grid, Line,Scatter
+        from pyecharts.globals import ThemeType
+
+        f1=Bar()
+        f1.add_xaxis(p0.index.tolist())
+        f1.add_yaxis("意尔康皮鞋旗舰店", p0[0].tolist())
+        f1.set_global_opts(title_opts=opts.TitleOpts(title="两个商场的销售情况", subtitle="意尔康皮鞋旗舰店、米兰多格商场"),
+                        legend_opts=opts.LegendOpts(pos_left="20%"))
+
+
+        f2=Bar()
+        f2.add_xaxis(p0.index.tolist())
+        f2.add_yaxis("米兰多格商场", p0[1].tolist())
+        f2.set_global_opts(title_opts=opts.TitleOpts(title="两个商场的销售情况", subtitle="意尔康皮鞋旗舰店、米兰多格商场"),
+                        legend_opts=opts.LegendOpts(pos_right="20%"))
+
+        g1=Grid(init_opts=opts.InitOpts(theme=ThemeType.PURPLE_PASSION))
+        g1.add(f1, grid_opts=opts.GridOpts(pos_left="55%"))
+        g1.add(f2, grid_opts=opts.GridOpts(pos_right="55%"))
+
+        g1.render('./results/bar2.html')
+    with open('./results/bar2.html','r') as f:
+        cp.html(f.read(),height=500,width=1000)
+
+    
     """- 图形选项卡"""
     with st.echo():
         from pyecharts.faker import Faker
         import pyecharts.options as opts
-        from pyecharts.charts import Bar, Tab, Pie, Line
+        from pyecharts.charts import Bar, Tab, Pie, Line, Timeline
         from pyecharts.components import Table
 
 
         def bar_datazoom_slider() -> Bar:
             c = (
                 Bar()
-                .add_xaxis(Faker.days_attrs)
-                .add_yaxis("商家A", Faker.days_values)
-                .add_yaxis("商家B", Faker.days_values)
+                .add_xaxis(p0.index.tolist())
+                .add_yaxis("意尔康皮鞋旗舰店", list(p0[0].values))
+                .add_yaxis("米兰多格商场", list(p0[1].values))
                 .set_global_opts(
-                    title_opts=opts.TitleOpts(title="Bar-DataZoom（slider-水平）"),
+                    title_opts=opts.TitleOpts(title="柱状图"),
                     datazoom_opts=[opts.DataZoomOpts()],
                 )
             )
@@ -111,29 +184,29 @@ if opt == menu[1]:
         def line_markpoint() -> Line:
             c = (
                 Line()
-                .add_xaxis(Faker.choose())
+                .add_xaxis(p0.index.tolist())
                 .add_yaxis(
-                    "商家A",
-                    Faker.values(),
+                    "意尔康皮鞋旗舰店",
+                    list(p0[0].values),
                     markpoint_opts=opts.MarkPointOpts(data=[opts.MarkPointItem(type_="min")]),
                 )
                 .add_yaxis(
-                    "商家B",
-                    Faker.values(),
+                    "米兰多格商场",
+                    list(p0[1].values),
                     markpoint_opts=opts.MarkPointOpts(data=[opts.MarkPointItem(type_="max")]),
                 )
-                .set_global_opts(title_opts=opts.TitleOpts(title="Line-MarkPoint"))
+                .set_global_opts(title_opts=opts.TitleOpts(title="折线图"))
             )
             return c
 
 
         def pie_rosetype() -> Pie:
-            v = Faker.choose()
+            v = p0.index.tolist()
             c = (
                 Pie()
                 .add(
                     "",
-                    [list(z) for z in zip(v, Faker.values())],
+                    [list(z) for z in zip(v,  list(p0[0].values))],
                     radius=["30%", "75%"],
                     center=["25%", "50%"],
                     rosetype="radius",
@@ -141,12 +214,12 @@ if opt == menu[1]:
                 )
                 .add(
                     "",
-                    [list(z) for z in zip(v, Faker.values())],
+                    [list(z) for z in zip(v,  list(p0[0].values))],
                     radius=["30%", "75%"],
                     center=["75%", "50%"],
                     rosetype="area",
                 )
-                .set_global_opts(title_opts=opts.TitleOpts(title="Pie-玫瑰图示例"))
+                .set_global_opts(title_opts=opts.TitleOpts(title=""))
             )
             return c
 
@@ -154,51 +227,59 @@ if opt == menu[1]:
         def table_base() -> Table:
             table = Table()
 
-            headers = ["City name", "Area", "Population", "Annual Rainfall"]
+            headers = ["款式","意尔康皮鞋旗舰店", "米兰多格商场"]
             rows = [
-                ["Brisbane", 5905, 1857594, 1146.4],
-                ["Adelaide", 1295, 1158259, 600.5],
-                ["Darwin", 112, 120900, 1714.7],
-                ["Hobart", 1357, 205556, 619.5],
-                ["Sydney", 2058, 4336374, 1214.8],
-                ["Melbourne", 1566, 3806092, 646.9],
-                ["Perth", 5386, 1554769, 869.4],
+                ["乐福鞋", 3.0, 1.0],        
+                ["伐木鞋", 1.0, 0.0],
+                ["休闲皮鞋", 87.0,108.0],
+                ["休闲高帮皮鞋", 8.0,0.0],
+                ["商务休闲鞋", 38.0,9.0],
+                ["布洛克鞋", 3.0, 0.0],
+                ["德比鞋（正装皮鞋）", 91.0, 11.0],
+                ["懒人鞋",4.0,0.0],
+                ["户外休闲鞋",7.0,0.0],
+                ["板鞋",18.0,18.0],
+                ["沙滩鞋",7.0,0.0],
+                ["豆豆鞋",8.0,8.0],
+                ["运动休闲鞋",9.0,0.0],
+                ["镂空皮鞋",3.0,1.0],
+                ["高帮板鞋",2.0,0.0],
+                ["工装鞋",0.0,2.0]    
             ]
             table.add(headers, rows).set_global_opts(
                 title_opts=opts.ComponentTitleOpts(title="Table")
             )
+
             return table
 
+
+
+
         tab = Tab()
-        tab.add(bar_datazoom_slider(), "bar-example")
-        tab.add(line_markpoint(), "line-example")
-        tab.add(pie_rosetype(), "pie-example")
-        tab.add(table_base(), "table-example")
+        tab.add(bar_datazoom_slider(), "bar")
+        tab.add(line_markpoint(), "line")
+        tab.add(pie_rosetype(), "pie")
+        tab.add(table_base(), "table")
         tab.render('./results/hl2.html')
     with open('./results/hl2.html','r') as f:
         cp.html(f.read(),height=600,width=1000)
 
     """- 时间轮播图"""
     with st.echo():
-        from pyecharts.faker import Faker
-        import pyecharts.options as opts
-        from pyecharts.charts import Bar, Page, Pie, Timeline
+        f1=Bar()
+        f1.add_xaxis(p0.index.tolist())
+        f1.add_yaxis("意尔康皮鞋旗舰店", p0[0].tolist())
+        f1.set_global_opts(title_opts=opts.TitleOpts(title="两个商场的销售情况", subtitle="意尔康皮鞋旗舰店、米兰多格商场"))
 
+        f2=Bar()
+        f2.add_xaxis(p0.index.tolist())
+        f2.add_yaxis("米兰多格商场", p0[1].tolist())
+        f2.set_global_opts(title_opts=opts.TitleOpts(title="两个商场的销售情况", subtitle="意尔康皮鞋旗舰店、米兰多格商场"))
 
-        def timeline_bar() -> Timeline:
-            x = Faker.choose()
-            tl = Timeline()
-            for i in range(2015, 2020):
-                bar = (
-                    Bar()
-                    .add_xaxis(x)
-                    .add_yaxis("商家A", Faker.values())
-                    .add_yaxis("商家B", Faker.values())
-                    .set_global_opts(title_opts=opts.TitleOpts("某商店{}年营业额".format(i)))
-                )
-                tl.add(bar, "{}年".format(i))
-            return tl
-        timeline_bar().render('./results/hl3.html')
+        t1=Timeline()
+        t1.add(f1,"777")
+        t1.add(f2,"888")
+        t1.render('./results/hl3.html')
     with open('./results/hl3.html','r') as f:
         cp.html(f.read(),height=600,width=1000)
 
@@ -230,6 +311,23 @@ if opt == menu[2]:
                 )
         f3.render('./results/hl4.html')
     with open('./results/hl4.html','r') as f:
+        cp.html(f.read(),height=600,width=1000)
+    
+    with st.echo():
+        import random
+        from pyecharts.faker import  Faker
+        import pyecharts.options as opts
+        from pyecharts.charts import HeatMap
+
+        f4=HeatMap()
+        f4.add_xaxis(x)
+        f4.add_yaxis("series0", y, data)
+        f4.set_global_opts(
+            title_opts=opts.TitleOpts(title="鞋面材质-风格"),
+            visualmap_opts=opts.VisualMapOpts(),
+        )
+        f4.render('./results/hl5.html')
+    with open('./results/hl5.html','r') as f:
         cp.html(f.read(),height=600,width=1000)
 
 if opt == menu[3]:
@@ -323,3 +421,12 @@ if opt == menu[5]:
         #垄断店铺之外的商家生存之道
     with open('./results/hl6.html','r') as f:
         cp.html(f.read(),height=600,width=1000)
+    """
+    * 我们可以在平行坐标图中看到销售额排名前二的两家店铺的销售情况，特征依次是店铺的销售额、店铺的商品数量、店铺的男鞋平均销售量、每笔的单价以及鞋子的平均价格。
+
+* 在平行坐标图中可以看到销售额排名第一和第二的店铺它们的商品数量不一样，销售额第一的店铺商品数量有300多，销售额第二的店铺商品数量有150多,但销售额第二的店铺笔单价比较高，排名第二的店铺它买的商品价格都偏高，而且它卖的平均价格也偏高，达到了接近700的均价，而排名第一的店铺笔单价和销售的均价都不是最高的。说明排名第一的店铺和排名第二的店铺它们在运营策略上都有差异，排名第二的店铺主打的是高价格的男鞋，主导的是高端市场，而排名第一的店铺把价格往主流方向上靠拢。
+
+* 排名第四、第五的店铺，它们商品都比较少，甚至是个位数，但是它们的平均销量都比较高，即虽然商品通货量少，每一样商品都卖得比较高，前提是这几个商品价格都较低，说明排名第四、第五的店铺都是靠价格取胜的，通过低价总量的方式来生存的。
+
+* 通过平行坐标图能很好的展现头部这几个店家竞争时它们的销售策略是不同的，通过不同销售方式来生存的。
+    """
