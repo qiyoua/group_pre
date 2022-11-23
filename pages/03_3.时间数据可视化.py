@@ -74,6 +74,7 @@ if opt == menu[0]:
         g.render(r'./results/ts1.html')
     with open(r'./results/ts1.html') as f:
         cp.html(f.read(),width=1000,height=500)
+    """浅浅画个折线图感受一下"""
 
 if opt == menu[1]:
     with st.echo():
@@ -117,6 +118,8 @@ if opt == menu[1]:
         g.render(r'./results/ts2.html')
     with open(r'./results/ts2.html') as f:
         cp.html(f.read(),width=1000,height=500)
+    """标注一下不同区域，可以标注背景，也可以标注价格范围"""
+    """所谓“牛市”（niú shì，bull market），也称多头市场，指证券市场行情普遍看涨，延续时间较长的大升市。此处的证券市场，泛指常见的股票、债券、期货、期权（选择权）、外汇、基金、可转让定存单、衍生性金融商品及其它各种证券。其他一些投资和投机性市场，也可用牛市和熊市来表述，如房市、邮（票）市、卡市等等。"""
 
 if opt == menu[2]:
     with st.echo():
@@ -133,6 +136,9 @@ if opt == menu[2]:
         g.render(r'./results/ts3.html')
     with open(r'./results/ts3.html') as f:
         cp.html(f.read(),width=1000,height=500)
+    """年化收益率=[（投资内收益 / 本金）/ 投资天数] *365 ×100%
+
+给的是每天的数据，需要自己计算得到"""
 
 if opt == menu[3]:
     with st.echo():    
@@ -151,6 +157,7 @@ if opt == menu[3]:
         g.render(r'./results/ts4.html')
     with open(r'./results/ts4.html') as f:
         cp.html(f.read(),width=1000,height=500)
+    """给上证综指和创业板做个年化收益率的比较"""
 
 if opt == menu[4]:
     with st.echo():    
@@ -162,6 +169,7 @@ if opt == menu[4]:
         g.render(r'./results/ts5.html')
     with open(r'./results/ts5.html') as f:
         cp.html(f.read(),width=1000,height=500)
+    """简易版k线图，没有时间轴，点在图上可以显示开盘价格，收盘价格，最高最低价，我们等会再讲"""
 
 if opt == menu[5]:
     with st.echo():    
@@ -190,6 +198,7 @@ if opt == menu[5]:
         draw_kline(df).render(r'./results/ts6.html')
     with open(r'./results/ts6.html') as f:
         cp.html(f.read(),width=1000,height=500)
+    """有时间轴的简易k线图，同样，等会再讲"""
 
 if opt == menu[6]:
     with st.echo():    
@@ -212,6 +221,7 @@ if opt == menu[6]:
         g.render(r'./results/ts7.html')
     with open(r'./results/ts7.html') as f:
         cp.html(f.read(),width=1000,height=500)
+    """上证综指和创业板的，指数历年收益率，有年份可以比较每一年的变化，也可以互相对比。类似于气泡图"""
 
 if opt == menu[7]:
     with st.echo():    
@@ -236,6 +246,7 @@ if opt == menu[7]:
         g.render(r'./results/ts8.html')
     with open(r'./results/ts8.html') as f:
         cp.html(f.read(),width=1000,height=500)
+    """我们可能会好奇相关性，所以这种四象限图，可以很好的看出一个相关性"""
 
 if opt == menu[8]:
     with st.echo():    
@@ -400,6 +411,53 @@ if opt == menu[8]:
             data.index = data.index.astype('datetime64[ns]')
             plot_kline_volume_signal(data)
     with open(r'./results/ts9.html') as f:
-        cp.html(f.read(),width=1500,height=1500)
+        cp.html(f.read(),width=1500,height=1000)
+    """
+    综合版Kline
+
+什么是K线图，怎么看？  K线又被称为阴阳烛，据说起源于十八世纪日本的米市，当时日本的米商用来表示米价的变动情况，后被引用到证券市场，成为股票技术分析的一种理论。K线是一条柱状的线条，由影线和实体组成。影线在实体上方的部分叫上影线，下方的部分叫下影线。实体分阳线和阴线。其中影线表明当天交易的最高和最低价，而实体表明当天的开盘价和收盘价。　
+
+很类似箱线图的感觉，但是表示含义有差异
+
+
+日K线是根据股价(指数)一天的走势中形成的四个价位即：开盘价，收盘价，最高价，最低价绘制而成的。
+
+收盘价高于开盘价时，则开盘价在下收盘价在上，二者之间的长方柱用红色或空心绘出，称之为阳线；其上影线的最高点为最高价，下影线的最低点为最低价。　　
+
+收盘价低于开盘价时，则开盘价在上收盘价在下，二者之间的长方柱用黑色(我们是用绿色画出来的)或实心绘出，称之为阴线，其上影线的最高点为最高价，下影线的最低点为最低价。
+
+
+数据来自于tushare包爬取上证指数
+"""
+    st.code("""
+
+tushare.get_hist_data('股票代码',start = '',end = '')
+
+date：日期
+open：开盘价
+high：最高价
+close：收盘价
+low：最低价
+volume：成交量
+price_change：价格变动
+p_change：涨跌幅
+ma5：5日均价
+ma10：10日均价
+ma20:20日均价
+v_ma5:5日均量
+v_ma10:10日均量
+v_ma20:20日均量""")
+
+    """
+总之，就是一天中的价格的变动范围（盒子），
+
+还有一段时间的价格成交量的变化情况，还有就是均价的一个变化（折线）
+
+kline下面是交易总量的一个情况，涨了可能卖，跌了可能买，取决于博弈的心理
+
+总而言之，股市有风险，投资需谨慎，从经济学还是金融的原理，炒股是个零和博弈，就是大部分人是不赔不赚的，不要指望炒赚钱，踏踏实实学习才是人间正道。
+
+股票是最典型的具有GARCH效应的时间序列，GARCH效应：波动的聚集，就是你对股票价格拟合一个ARMA，然后对残差求个平方，再检查acfpacf,会发现明显的自相关性。
+    """
 
     

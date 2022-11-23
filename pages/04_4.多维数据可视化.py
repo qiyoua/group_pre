@@ -22,8 +22,7 @@ def set_bg_hack_url():
              background-size: cover
          }}
          </style>
-         """,
-         unsafe_allow_html=True
+         """
      )
 # set_bg_hack_url()
 
@@ -87,7 +86,7 @@ if opt == menu[1]:
     with open('./results/hl1.html','r') as f:
         cp.html(f.read(),height=500,width=1000)
     
-    """- 图形的缩放"""
+    """- 图形选项卡"""
     with st.echo():
         from pyecharts.faker import Faker
         import pyecharts.options as opts

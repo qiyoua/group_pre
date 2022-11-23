@@ -9,12 +9,6 @@ from pyecharts.faker import Faker
 from streamlit_option_menu import option_menu
 
 st.set_page_config(layout='wide')
-with st.sidebar:
-    menu = ['1.1pyecharts介绍','1.2pyecharts绘图逻辑说明','1.3pyecharts图表的配置项']
-    opt = option_menu(menu_title='1.pyecharts简介',options=menu)
-
-
-# tab1,tab2,tab3 = st.tabs(['1.pyecharts介绍','2.pyecharts绘图逻辑说明','3.pyecharts图表的配置项'])
 def set_bg_hack_url():
     '''
     A function to unpack an image from url and set as bg.
@@ -35,6 +29,24 @@ def set_bg_hack_url():
          unsafe_allow_html=True
      )
 set_bg_hack_url()
+with st.sidebar:
+    st.markdown(
+    """
+<style>
+.stSidebar .sidebar-content {
+    background-image: linear-gradient(#2e7bcf,#2e7bcf);
+    color: white;
+}
+</style>
+""",
+    unsafe_allow_html=True,
+)
+    menu = ['1.1pyecharts介绍','1.2pyecharts绘图逻辑说明','1.3pyecharts图表的配置项']
+    opt = option_menu(menu_title='1.pyecharts简介',options=menu)
+
+
+# tab1,tab2,tab3 = st.tabs(['1.pyecharts介绍','2.pyecharts绘图逻辑说明','3.pyecharts图表的配置项'])
+
 if opt == menu[0]:
     """
     ### 📣 概况
