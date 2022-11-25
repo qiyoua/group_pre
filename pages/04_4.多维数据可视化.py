@@ -27,8 +27,8 @@ def set_bg_hack_url():
 # set_bg_hack_url()
 
 with st.sidebar:
-    menu = ['2.1.数据介绍','2.2.图的布局','2.3.3d柱状图与热图',
-    '2.4.店铺特征矩阵的构建','2.5. 散点图','2.6.平行坐标系']
+    menu = ['2.1.数据介绍','2.2.单图中多列数据合并','2.3散点图和折线图并列','2.4柱状图并列','2.5 3d柱状图与热图',
+    '2.6 店铺特征矩阵的构建','2.7散点图','2.8平行坐标系']
     opt = option_menu('多维数据可视化',options=menu)
 
 a = pd.read_csv("./results/shoes.csv")
@@ -71,13 +71,19 @@ if opt == menu[0]:
     """- 查看数据集的特征"""
     st.code(a.columns)
     """
-    * 计算上面排名前二的两个商家各个款式的对应的商品数量，并且组成矩阵，使得第一列是"意尔康皮鞋旗舰店"对应的商品数量，第二列是"米兰多格商场"对应的商品数量 （注意为什么要组成数据框，这是为了可以让索引对齐）
+    * 计算上面排名前二的两个商家各个款式的对应的商品数量，并且组成矩阵，使得第一列是"意尔康皮鞋旗舰店"对应的商品数量，第二列是"米兰多格商场"对应的商品数量（注意为什么要组成数据框，这是为了可以让索引对齐）
     """
     with st.echo():
         t1=a[a.nick=="意尔康皮鞋旗舰店"].groupby("info.款式").size()
         t2=a[a.nick=="米兰多格商场"].groupby("info.款式").size()
         p0=pd.concat([t1,t2],axis=1,sort=False).fillna(0)
     st.dataframe(p0.T)
+    
+    
+if opt == menu[1]:
+    """
+    pyecharts 包制作的图表里有工具栏，左上角有一些图片功能，包括：保存图片、还原、数据视图、区域缩放、切换为折现图、切换成柱状图、切换为堆叠、矩形选择、圈选、横向选择、纵向选择、保持选择、清除选择，交互性较强
+    """
     with st.echo():
         from pyecharts.globals import ThemeType
         from pyecharts.faker import Faker
@@ -92,9 +98,10 @@ if opt == menu[0]:
         bar.render('./results/bar1.html')  #切换成柱状图
     with open('./results/bar1.html','r') as f:
         cp.html(f.read(),height=800,width=1000)
-    
-if opt == menu[1]:
+
+if opt == menu[2]:
     """- 图形的并列"""
+    """pyecharts 包可以组合多个图表，让多图在一个界面显示，比如说图的并列（柱 状图并列）（散点图和折线图也可以并列）、图形选项卡，时间线轮播图"""
     with st.echo():
         from pyecharts.faker import Faker
         import pyecharts.options as opts
@@ -132,10 +139,13 @@ if opt == menu[1]:
         grid_horizontal().render('./results/hl1.html')
     with open('./results/hl1.html','r') as f:
         cp.html(f.read(),height=500,width=1000)
-    
+
+if opt == menu[3]: 
+    """- 柱状图并列"""
     with st.echo():
         from pyecharts.charts import Bar, Grid, Line,Scatter
         from pyecharts.globals import ThemeType
+        import pyecharts.options as opts
 
         f1=Bar()
         f1.add_xaxis(p0.index.tolist())
@@ -157,8 +167,6 @@ if opt == menu[1]:
         g1.render('./results/bar2.html')
     with open('./results/bar2.html','r') as f:
         cp.html(f.read(),height=500,width=1000)
-
-    
     """- 图形选项卡"""
     with st.echo():
         from pyecharts.faker import Faker
@@ -282,8 +290,16 @@ if opt == menu[1]:
         t1.render('./results/hl3.html')
     with open('./results/hl3.html','r') as f:
         cp.html(f.read(),height=600,width=1000)
-
-if opt == menu[2]:
+    """
+    从以上图中可以看到商品数量排名前二的两个商家中，休闲皮鞋都是卖得最好一个款式，意尔康皮鞋期间店里卖得最好的是德比鞋，另外板鞋在两家店铺中的销售情况相同。
+    """
+if opt == menu[4]: 
+    """
+    * 对于多维数据，3d图是非常形象的表现方法，x,y轴通常表示两个条件限定，z轴（柱的高度）通常表示在这样限定下的数量
+    
+    * 注意 pyecharts3d 柱状图的数据格式，x,y 分别对应有哪些类别，通常是一个列表，而data 是一个三元列表，前两个为确定哪两个类别，通过序号指代，最后一个为数量使用的数据是：“鞋面材质”,“风格”这两个特征下商品的数量
+    """
+    """- 3D柱状图"""
     with st.echo():
         import pyecharts.options as opts
         from pyecharts.charts import Bar3D 
@@ -312,7 +328,7 @@ if opt == menu[2]:
         f3.render('./results/hl4.html')
     with open('./results/hl4.html','r') as f:
         cp.html(f.read(),height=600,width=1000)
-    
+    """- 热图"""
     with st.echo():
         import random
         from pyecharts.faker import  Faker
@@ -329,32 +345,44 @@ if opt == menu[2]:
         f4.render('./results/hl5.html')
     with open('./results/hl5.html','r') as f:
         cp.html(f.read(),height=600,width=1000)
+    """
+    从 3D柱状图和热图中可以发现，材质为头层牛皮的鞋子比较受欢迎， 风格里，商务、休闲、青春潮流、简约和英伦的比较受欢迎，最受欢迎的鞋子款式为尚无风格的头层牛皮鞋，最不受欢迎的鞋子为民族风格，棉布材质等
+    """
 
-if opt == menu[3]:
+if opt == menu[5]:
+    st.code(
+        """
+z_xse: 这个店铺的销售额
+z_num: 这个店铺的商品数量
+p_sales: 平均的销售量
+p_dbj: 每笔单价（平均每笔的单价）=销售额和/销售量的
+p_price: 这个店铺的平均价格
+        """
+    )
     st.code("""
-        #把商品销量提取出来，并把对应列表的类型转化为数
-        a.sales=a.sales.str.split("人",expand=True)[0]
-        a.sales = a.sales.astype(np.int64)#转换列的类型为整数
-        a.price = a.price.astype(np.float)
-        #求出各个商品的销售额并把它并入到原始数据框中去
-        z1=a.sales*a.price
-        z1.name="xse"
-        a1=pd.concat([a,z1],axis=1)#给序列命名之后添加入数据框就会直接以序列名作为列标
-        #先做成字典，把各个特征放入字典中
-        te_zheng={"nick":[],"z_xse":[],"z_num":[],"p_sales":[],"p_bdj":[],"p_price":[]}
-        for i in a1.groupby("nick"):
-            te_zheng["nick"].append(i[0])
-            te_zheng["z_xse"].append(i[1].xse.sum()) #某个店铺的销售额
-            te_zheng["z_num"].append(len(i[1]))  #这个店铺的商品数量
-            te_zheng["p_sales"].append(round(i[1].sales.mean(),1))
-            if i[1].sales.sum()==0:#存在除零的情况，所以做判断
-                te_zheng["p_bdj"].append(0)
-            else:
-                te_zheng["p_bdj"].append(round(i[1].xse.sum()/i[1].sales.sum(),1)) #算笔单价，销售额和/销售量的和
-            te_zheng["p_price"].append(round(i[1].price.mean(),1))
-        # 把字典转化为数据框，并基于销售额排序
-        df_te_zheng=pd.DataFrame(te_zheng)
-        df_te_zheng.sort_values(by="z_xse",ascending=False,inplace=True)""")
+#把商品销量提取出来，并把对应列表的类型转化为数
+a.sales=a.sales.str.split("人",expand=True)[0]
+a.sales = a.sales.astype(np.int64)#转换列的类型为整数
+a.price = a.price.astype(np.float)
+#求出各个商品的销售额并把它并入到原始数据框中去
+z1=a.sales*a.price
+z1.name="xse"
+a1=pd.concat([a,z1],axis=1)#给序列命名之后添加入数据框就会直接以序列名作为列标
+#先做成字典，把各个特征放入字典中
+te_zheng={"nick":[],"z_xse":[],"z_num":[],"p_sales":[],"p_bdj":[],"p_price":[]}
+for i in a1.groupby("nick"):
+    te_zheng["nick"].append(i[0])
+    te_zheng["z_xse"].append(i[1].xse.sum()) #某个店铺的销售额
+    te_zheng["z_num"].append(len(i[1]))  #这个店铺的商品数量
+    te_zheng["p_sales"].append(round(i[1].sales.mean(),1))
+    if i[1].sales.sum()==0:#存在除零的情况，所以做判断
+        te_zheng["p_bdj"].append(0)
+    else:
+        te_zheng["p_bdj"].append(round(i[1].xse.sum()/i[1].sales.sum(),1)) #算笔单价，销售额和/销售量的和
+    te_zheng["p_price"].append(round(i[1].price.mean(),1))
+# 把字典转化为数据框，并基于销售额排序
+df_te_zheng=pd.DataFrame(te_zheng)
+df_te_zheng.sort_values(by="z_xse",ascending=False,inplace=True)""")
 
 #把商品销量提取出来，并把对应列表的类型转化为数
 a.sales=a.sales.str.split("人",expand=True)[0]
@@ -380,7 +408,7 @@ for i in a1.groupby("nick"):
 df_te_zheng=pd.DataFrame(te_zheng)
 df_te_zheng.sort_values(by="z_xse",ascending=False,inplace=True)
 
-if opt == menu[4]:
+if opt == menu[6]:
     with st.echo():
         from pyecharts.charts import Scatter
         import pyecharts.options as opts
@@ -395,7 +423,7 @@ if opt == menu[4]:
     with open('./results/hl5.html','r') as f:
         cp.html(f.read(),height=600,width=1000)
 
-if opt == menu[5]:
+if opt == menu[7]:
     with st.echo():
         from pyecharts.charts import Parallel
         import pyecharts.options as opts
