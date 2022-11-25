@@ -1,6 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as cp
 from streamlit_option_menu import option_menu
+import base64
 
 st.set_page_config(layout='wide',initial_sidebar_state='collapsed')
 
@@ -11,12 +12,15 @@ def set_bg_hack_url():
     -------
     The background.
     '''
-        
+    file_ = open("./results/bk1.jpg", "rb")
+    contents = file_.read()
+    data_url = base64.b64encode(contents).decode("utf-8")
+    file_.close()
     st.markdown(
          f"""
          <style>
          .stApp {{
-             background: url("https://ts1.cn.mm.bing.net/th/id/R-C.773df84f18ad88b4c92d7875f9f26130?rik=o%2bndsKTQORcCZA&riu=http%3a%2f%2fwww.686ppt.com%2fd%2ffile%2fp%2flouyujing%2f2020nian%2f6.19%2f36_7.jpg&ehk=nX9exFQDWmUW%2bPKRLEJqV9v%2bzdyxS2ckXOPnrp%2fLk9s%3d&risl=&pid=ImgRaw&r=0");
+             background: url("data:image/gif;base64,{data_url}");
              background-size: cover
          }}
          </style>

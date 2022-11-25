@@ -7,6 +7,7 @@ from pyecharts.globals import BMapType, ChartType
 from pyecharts.charts import BMap
 from pyecharts.globals import GeoType
 from streamlit_option_menu import option_menu
+import base64
 
 st.set_page_config(layout='wide')
 def set_bg_hack_url():
@@ -16,19 +17,22 @@ def set_bg_hack_url():
     -------
     The background.
     '''
-        
+    file_ = open("./results/bk1.jpg", "rb")
+    contents = file_.read()
+    data_url = base64.b64encode(contents).decode("utf-8")
+    file_.close()
     st.markdown(
          f"""
          <style>
          .stApp {{
-             background: url("https://www.beihaiting.com/uploads/allimg/150528/10723-15052QF335K6.jpg");
+             background: url("data:image/gif;base64,{data_url}");
              background-size: cover
          }}
          </style>
          """,
          unsafe_allow_html=True
      )
-# set_bg_hack_url()
+set_bg_hack_url()
 # tab1,tab2,tab3,tab4,tab5,tab6,tab7,tab8,tab9 = st.tabs(['1.1.点图:POI数据介绍','1.2.点图POI数据获取','1.3.点图:POI数据可视化','1.4.点图:核酸点的可视化','1.5.点图:空气质量点',
 # '2.1.线图:在地图上连线','2.2.线图:绘制路线图','3.1.面图:简单的热力图','3.2.香港人口密度可视化'])
 

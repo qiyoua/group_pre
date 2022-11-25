@@ -7,6 +7,7 @@ from pyecharts.globals import ThemeType
 from pyecharts.globals import RenderType
 from pyecharts.faker import Faker
 from streamlit_option_menu import option_menu
+import base64
 
 st.set_page_config(layout='wide')
 def set_bg_hack_url():
@@ -16,12 +17,15 @@ def set_bg_hack_url():
     -------
     The background.
     '''
-        
+    file_ = open("./results/bk1.jpg", "rb")
+    contents = file_.read()
+    data_url = base64.b64encode(contents).decode("utf-8")
+    file_.close()
     st.markdown(
          f"""
          <style>
          .stApp {{
-             background: url("https://www.beihaiting.com/uploads/allimg/150528/10723-15052QF335K6.jpg");
+             background: url("data:image/gif;base64,{data_url}");
              background-size: cover
          }}
          </style>
