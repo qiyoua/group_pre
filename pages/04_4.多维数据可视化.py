@@ -32,9 +32,9 @@ def set_bg_hack_url():
 set_bg_hack_url()
 
 with st.sidebar:
-    menu = ['2.1.数据介绍','2.2.单图中多列数据合并','2.3散点图和折线图并列','2.4柱状图并列','2.5 3d柱状图与热图',
-    '2.6 店铺特征矩阵的构建','2.7散点图','2.8平行坐标系']
-    opt = option_menu('多维数据可视化',options=menu)
+    menu = ['4.1.数据介绍','4.2.单图中多列数据合并','4.3散点图和折线图并列','4.4柱状图并列','4.5 3d柱状图与热图',
+    '4.6 店铺特征矩阵的构建','4.7散点图','4.8平行坐标系']
+    opt = option_menu('4.多维数据可视化',options=menu)
 
 a = pd.read_csv("./results/shoes.csv")
 t1=a[a.nick=="意尔康皮鞋旗舰店"].groupby("info.款式").size()
